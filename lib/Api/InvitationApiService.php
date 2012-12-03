@@ -116,7 +116,7 @@
 	 * @param comment Optional comment to add to the invitation
 	 * @since 3.4
 	 */
-		function String>($idUser = null, $idGroup = null, $isEditor = "false", $isInviter = "false", $isTaskManager = "false", $isOwner = "false", $isCommenter = "false", $comment = null) {
+		function sendGroupInvitation($idUser = null, $idGroup = null, $isEditor = "false", $isInviter = "false", $isTaskManager = "false", $isOwner = "false", $isCommenter = "false", $comment = null) {
 
 			$method = INVITATIONS . "/groupinvitation";
 
@@ -145,7 +145,7 @@
 	 * @param comment Optional comment to add to the invitation
 	 * @since 3.4
 	 */
-		function String>2($idUser = null, $comment = null) {
+		function sendExternalContactInvitation($idUser = null, $comment = null) {
 
 			$method = INVITATIONS . "/externalcontactinvitation";
 
@@ -168,7 +168,7 @@
 	 * @param comment Optional comment to add to the invitation
 	 * @since 3.4
 	 */
-		function String>3($appIdOrEmail = null, $shareGroupURN = null, $enableEditor = null, $enableInviter = null, $enableTaskManager = null, $comment = null, $isOwner = null) {
+		function sendInvitation($appIdOrEmail = null, $shareGroupURN = null, $enableEditor = null, $enableInviter = null, $enableTaskManager = null, $comment = null, $isOwner = null) {
 
 			$method = INVITATIONS . "/group";
 
