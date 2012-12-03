@@ -284,7 +284,7 @@
 	 * 
 	 * @since 4.0
 	 */
-		function extends($consumerkey, $organizationName = null, $organizationQuota = null, $totalUsers = null, $organizationType = null, $userName = null, $lastName = null, $password = null, $email = null, $userQuota = null, $language = null) {
+		function createOrganizacion($consumerkey, $organizationName = null, $organizationQuota = null, $totalUsers = null, $organizationType = null, $userName = null, $lastName = null, $password = null, $email = null, $userQuota = null, $language = null) {
 
 			$method = ORGANIZATION . "/create/$consumerkey";
 

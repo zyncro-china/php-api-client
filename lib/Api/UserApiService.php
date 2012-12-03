@@ -157,7 +157,7 @@
 	 * @param onlyShort Determines whether short or complete profile information is returned. Default is false and returns complete profile.
 	 * @return User profile information {@link UserApi}
 	 */
-		function extends($iduser, $onlyShort = "false") {
+		function getUser($iduser, $onlyShort = "false") {
 
 			$method = USERS . "/$iduser";
 
@@ -178,7 +178,7 @@
 	 * @param onlyShort Determines whether short or complete profile information is returned. Default is false and returns complete profile.
 	 * @return User profile information {@link UserApi}
 	 */
-		function extends2($onlyShort = "false") {
+		function getProfile($onlyShort = "false") {
 
 			$method = USERS . "/profile";
 
@@ -200,7 +200,7 @@
 	 * @param onlyShort Determines whether short or complete profile information is returned. Default is false and returns complete profile.
 	 * @return User profile information {@link UserApi}
 	 */
-		function extends3($users = null, $onlyShort = "false") {
+		function getUsersById($users = null, $onlyShort = "false") {
 
 			$method = USERS . "/profiles";
 
