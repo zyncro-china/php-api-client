@@ -292,7 +292,7 @@
 	 * @param length The size of the file to upload in bytes.
 	 * @since 3.5
 	 */
-		function uploadProfileImage($, $length = null, $file = null) {
+		function uploadProfileImage($length = null, $file = null) {
 
 			$method = USERS . "/uploadimage/@oauthtoken";
 
