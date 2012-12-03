@@ -1,5 +1,5 @@
 <?php
-	include "../config.php";
+	include_once "../config.php";
 	class TagApiService extends DSF_Controller { 
 		public $zyncroApi;
 

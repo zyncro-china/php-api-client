@@ -1,5 +1,5 @@
 <?php
-	include "../config.php";
+	include_once "../config.php";
 	class OrganizationApiService extends DSF_Controller { 
 		public $zyncroApi;
 
@@ -225,7 +225,7 @@
 	 * @param length The size of the file to upload in bytes.
 	 * @since 3.5
 	 */
-		function uploadOrganizationLogo($, $length = null, $file = null) {
+		function uploadOrganizationLogo($length = null, $file = null) {
 
 			$method = ORGANIZATION . "/uploadlogo/@oauthtoken";
 
