@@ -310,10 +310,7 @@
 		}
 
 	/**
-	 * Obtains a list of associated users.
-	 * 
-	 * @return A list of associated users. {@link AssociateUserApi}
-	 * @since 4.0
+	 *
 	 */
 		function getShortContacts($pageNumber = null, $itemsPerPage = null, $type = "0") {
 
@@ -333,10 +330,9 @@
 		}
 
 	/**
-	 * Associate users from diferent organizations.
+	 * Obtains a list of associated users.
 	 * 
-	 * @param email email of the new associated user.
-	 * @param password password of the new associated user.
+	 * @return A list of associated users. {@link AssociateUserApi}
 	 * @since 4.0
 	 */
 		function getAssociatedUsers() {
@@ -353,12 +349,10 @@
 		}
 
 	/**
-	 * Gets the list of the Apps for the logged user.
+	 * Associate users from diferent organizations.
 	 * 
-	 * @param pageNumber Page number to return. Default set to 1.
-	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
-	 * @param availabilityType Availability Type. Default set to 0. {@link AppAvailabilityApiType}
-	 * @return A list of apps {@link AppApi}
+	 * @param email email of the new associated user.
+	 * @param password password of the new associated user.
 	 * @since 4.0
 	 */
 		function associateUser($email = null, $password = null) {
@@ -377,6 +371,15 @@
 			return $response;
 		}
 
+	/**
+	 * Gets the list of the Apps for the logged user.
+	 * 
+	 * @param pageNumber Page number to return. Default set to 1.
+	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
+	 * @param availabilityType Availability Type. Default set to 0. {@link AppAvailabilityApiType}
+	 * @return A list of apps {@link AppApi}
+	 * @since 4.0
+	 */
 		function getApps($pageNumber = null, $itemsPerPage = null, $availabilityType = "0") {
 
 			$method = USERS . "/apps";
