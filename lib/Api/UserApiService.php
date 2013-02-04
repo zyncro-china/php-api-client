@@ -377,15 +377,6 @@
 			return $response;
 		}
 
-	/**
-	 * Gets the list of the Apps for the logged user.
-	 * 
-	 * @param pageNumber Page number to return. Default set to 1.
-	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
-	 * @param availabilityType Availability Type. Default set to 0. {@link AppAvailabilityApiType}
-	 * @return A list of apps {@link AppApi}
-	 * @since 4.0
-	 */
 		function getApps($pageNumber = null, $itemsPerPage = null, $availabilityType = "0") {
 
 			$method = USERS . "/apps";

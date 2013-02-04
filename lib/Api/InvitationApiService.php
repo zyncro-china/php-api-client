@@ -220,11 +220,8 @@
 		}
 
 	/**
-	 * Sends an invitation to a list of external users to be a contact.
-	 * 
-	 * @param users Comma-separated list of User ID to invite. Required if idUser is empty.
-	 * @param comment Optional comment to add to the invitation
-	 * @since 4.0
+	 * @deprecated Use
+	 *             {@link IInvitationApiService#sendGroupInvitation(String, String, boolean, boolean, boolean, boolean, boolean, String)}
 	 */
 		function sendInvitation($appIdOrEmail = null, $shareGroupURN = null, $enableEditor = null, $enableInviter = null, $enableTaskManager = null, $comment = null, $isOwner = null) {
 

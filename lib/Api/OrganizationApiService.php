@@ -348,13 +348,12 @@
 		}
 
 	/**
-	 * Gets the list of the Apps for the organization.
+	 * Updates status of extra sort fields
 	 * 
-	 * @param pageNumber Page number to return. Default set to 1.
-	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
-	 * @param availabilityType Availability Type. Default set to 0. {@link AppAvailabilityApiType}
-	 * @return A list of apps {@link AppApi}
-	 * @since 4.0
+	 * @param extrafield1status Status for extra sort field 1
+	 * @param extrafield2status Status for extra sort field 2
+	 * @param extrafield3status Status for extra sort field 3
+	 * @since 4.0.0.1
 	 */
 		function updateExtraSortFields($extrafield1status = "0", $extrafield2status = "0", $extrafield3status = "0") {
 

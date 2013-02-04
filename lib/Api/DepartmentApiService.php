@@ -1132,7 +1132,7 @@
 		}
 
 	/**
-	 * @deprecated Use {@link IDepartmentApiService#upload(String, String, String, String, String, String, Long, InputStream)}
+	 * @deprecated Use {@link IWallApiService#attachInEvent(String, String, String, String, Long, InputStream)}
 	 */
 		function uploadNewDocumentAttached($iddepartment, $parentDocumentUrn = null, $eventUrn = null, $description = null, $fileName = null, $length = null, $file = null) {
 

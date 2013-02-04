@@ -135,7 +135,11 @@
 		}
 
 	/**
-	 * The calling user stops following the indicated tag.
+	 * Gets the departments associated with a tag.
+	 * 
+	 * @param pageNumber Page number to return. Default set to 1.
+	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
+	 * @return A list of departments {@link DepartmentApi}
 	 */
 		function getDepartmentsForTag($idtag, $pageNumber = null, $itemsPerPage = null) {
 

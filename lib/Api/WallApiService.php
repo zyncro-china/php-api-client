@@ -1037,21 +1037,10 @@
 		}
 
 	/**
-	 * Searches messages for a specific text.
+	 * User action to "vote" this event.
 	 * 
-	 * @param pageNumber Page number to return. Default set to 1.
-	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10
-	 * @param text Text to search in the content of the messages.
-	 * @param searchType Filters the search to some sections. Default search in all sections. {@link SearchFilterApiType}
-	 * @param groups Comma-separated list of group IDs to filter the search to events including these groups. Default search in all.
-	 * @param users Comma-separated list of user IDs to filter the search to events including these users. Default search in all.
-	 * @param fromDate POSIX time in milliseconds. Used to filter the search to events from this date. Default search from the start.
-	 * @param toDate POSIX time in milliseconds. Used to filter the search to events up to this date. Default search up to now.
-	 * @param onlyResultSize Set as true if you only want to know the number of results that are in this search. Default is false.
-	 * @param includeHtml Whether the HTML content should be included in the returned events. Default is false.
-	 * @param includePropertiesPreview Whether include some properties (attached files, folders...) associated with each event. Default is
-	 *            false. {@since 3.5}
-	 * @return A list of events {@link EventApi} matching the search.
+	 * @param voteType Determines if vote is positive, negative or deleted. {@link VoteTypeApi}
+	 * @since 4.0
 	 */
 		function vote($voteType = null, $idevent) {
 
