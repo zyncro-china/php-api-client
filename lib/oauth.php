@@ -80,7 +80,7 @@
 				
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-         
+				 
 				$response = curl_exec($ch);
 				$query_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 				
@@ -125,11 +125,21 @@
 		        
 		        $result = $request->doRequest(0);	        
 		        
-		        if ( $result[ 'code' ] == 200 || $result[ 'code' ] == 100 )
+		        if ( $result[ 'code' ] == 200)
 		        {
-		            return $result[ 'body' ];
+		        	return $result['body'];	        	
 		        } 
-		        
+		        else if ($result[ 'code' ] == 100) 
+		        {
+			        $result = my_curl_parse ( $result['body'] );
+			        
+			        if ($result[ 'code' ] == 200)
+			        {
+			        	return $result['body'];	  			        
+			        } else {
+				        throw new Exception("OAuth Error " . $result['body']);
+			        }
+		        }
 		        
 	    	} catch (OAuthException2 $e){    		
 	    		if (!$ForceNewToken){
@@ -310,6 +320,43 @@
 			$limit = -1;
 			$count = 0;
 			return preg_replace ($pattern, '$1', $url, $limit, $count);			
+		}
+		
+		function my_curl_parse ($response)
+		{
+			if (empty($response))
+			{
+				return array();
+			}
+		
+			@list($headers,$body) = explode("\r\n\r\n",$response,2);
+			$lines = explode("\r\n",$headers);
+	
+			if (preg_match('@^HTTP/[0-9]\.[0-9] +100@', $lines[0]))
+			{
+				/* HTTP/1.x 100 Continue
+				 * the real data is on the next line
+				 */
+				@list($headers,$body) = explode("\r\n\r\n",$body,2);
+				$lines = explode("\r\n",$headers);
+			}
+		
+			// first line of headers is the HTTP response code 
+			$http_line = array_shift($lines);
+			if (preg_match('@^HTTP/[0-9]\.[0-9] +([0-9]{3})@', $http_line, $matches))
+			{
+				$code = $matches[1];
+			}
+		
+			// put the rest of the headers in an array
+			$headers = array();
+			foreach ($lines as $l)
+			{
+				list($k, $v) = explode(': ', $l, 2);
+				$headers[strtolower($k)] = $v;
+			}
+		
+			return array( 'code' => $code, 'headers' => $headers, 'body' => $body);
 		}
 	}
 ?>
