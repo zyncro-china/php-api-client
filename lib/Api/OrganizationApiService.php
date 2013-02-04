@@ -42,14 +42,13 @@
 	 * @param canAddUser Company/department owners can add users to their company/department.
 	 * @param canDeleteMessages Company/department owners can delete messages and comments from their company/department.
 	 * @param canChangeNames Company/department owners can change their company/department names.
-	 * @param canHideMembers Allow group/department owners to hide the members list
+	 * @param hideMembers Allow group/department owners to hide the members list
 	 * @param canDeleteMessagesInGroup Group owners can delete messages
-	 * @param allowHideParticipants Allow group owners to hide members list
+	 * @param hideParticipants Allow group owners to hide members list
 	 * @param hideTask Hide task functionality
 	 * @param allowComments All users can comment on corporate feed, not just corporate users.
-	 * @param allowPersonalFeed Users will have their own personal feed to publish their activity in the organization
+	 * @param havePersonalFeed Users will have their own personal feed to publish their activity in the organization
 	 * @param allowSeeNews Allow users in your organization to see Zyncro news.
-	 * 
 	 * @since 4.0
 	 */
 		function editOrganization($organizationName = null, $backgroundColor = null, $textColor = null, $loginPage = null, $url = null, $subdomain = null, $zlinksFooter = null, $canCreateZlink = null, $contactInvitation = null, $canPublicSearch = null, $organizationStructure = null, $canAddUser = null, $canDeleteMessages = null, $canChangeNames = null, $hideMembers = null, $canDeleteMessagesInGroup = null, $hideParticipants = null, $hideTask = null, $allowComments = null, $havePersonalFeed = null, $allowSeeNews = null) {
@@ -242,11 +241,13 @@
 		}
 
 	/**
-	 * Gets de list of valid IP's
+	 * Gets the list of valid IP's
+	 * 
+	 * @since 4.0
 	 */
-		function obtainValidIPs() {
+		function getIPWhiteList() {
 
-			$method = ORGANIZATION . "/ip";
+			$method = ORGANIZATION . "/getipwhitelist";
 
 			$verbmethod = "GET";
 
@@ -260,17 +261,20 @@
 	/**
 	 * Updates the list of valid IP's
 	 * 
+	 * @param enableIPWhiteList
 	 * @param ips Comma-separated list of users IDs
-	 * 
 	 * @since 4.0
 	 */
-		function updateValidIPs() {
+		function updateIPWhiteList($enable = null, $ips = null) {
 
-			$method = ORGANIZATION . "/ip";
+			$method = ORGANIZATION . "/updateipwhitelist";
 
 			$verbmethod = "POST";
 
-			$params = array();
+			$params = array("enable" => $enable,
+							 "ips" => $ips);
+
+			$params = array_filter($params, function($item) { return !is_null($item); });
 
 			$response = json_decode($this->zyncroApi->callApi( $method, $params, $verbmethod), true);
 
@@ -278,10 +282,19 @@
 		}
 
 	/**
-	 * Updates the list of valid IP's
+	 * Allows creation of an organization
 	 * 
-	 * @param ips Comma-separated list of users IDs
-	 * 
+	 * @param organizationName Name of the organization
+	 * @param organizationQuota Quota for the organization
+	 * @param totalUsers Total user for the organization
+	 * @param organizationType Type of the organization {@link OrganizationPlanApiType}
+	 * @param userName Name of the creator of the organization
+	 * @param lastName Lastname of the creator of the organization
+	 * @param password Password of the creator of the organization
+	 * @param email Email of the creator of the organization
+	 * @param userQuota Quota of the creater of the organization
+	 * @param language Languager for creator of the organization
+	 * @return User profile information {@link UserApi}
 	 * @since 4.0
 	 */
 		function createOrganizacion($consumerkey, $organizationName = null, $organizationQuota = null, $totalUsers = null, $organizationType = null, $userName = null, $lastName = null, $password = null, $email = null, $userQuota = null, $language = null) {
@@ -300,6 +313,58 @@
 							 "email" => $email,
 							 "userQuota" => $userQuota,
 							 "language" => $language);
+
+			$params = array_filter($params, function($item) { return !is_null($item); });
+
+			$response = json_decode($this->zyncroApi->callApi( $method, $params, $verbmethod), true);
+
+			return $response;
+		}
+
+	/**
+	 * Gets the list of the Apps for the organization.
+	 * 
+	 * @param pageNumber Page number to return. Default set to 1.
+	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
+	 * @param availabilityType Availability Type. Default set to 0. {@link AppAvailabilityApiType}
+	 * @return A list of apps {@link AppApi}
+	 * @since 4.0
+	 */
+		function getApps($pageNumber = null, $itemsPerPage = null, $availabilityType = "0") {
+
+			$method = ORGANIZATION . "/apps";
+
+			$verbmethod = "GET";
+
+			$params = array("pageNumber" => $pageNumber,
+							 "itemsPerPage" => $itemsPerPage,
+							 "availabilityType" => $availabilityType);
+
+			$params = array_filter($params, function($item) { return !is_null($item); });
+
+			$response = json_decode($this->zyncroApi->callApi( $method, $params, $verbmethod), true);
+
+			return $response;
+		}
+
+	/**
+	 * Gets the list of the Apps for the organization.
+	 * 
+	 * @param pageNumber Page number to return. Default set to 1.
+	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
+	 * @param availabilityType Availability Type. Default set to 0. {@link AppAvailabilityApiType}
+	 * @return A list of apps {@link AppApi}
+	 * @since 4.0
+	 */
+		function updateExtraSortFields($extrafield1status = "0", $extrafield2status = "0", $extrafield3status = "0") {
+
+			$method = ORGANIZATION . "/extrasortfields";
+
+			$verbmethod = "POST";
+
+			$params = array("extrafield1status" => $extrafield1status,
+							 "extrafield2status" => $extrafield2status,
+							 "extrafield3status" => $extrafield3status);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 

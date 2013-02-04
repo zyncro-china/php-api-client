@@ -19,7 +19,7 @@
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of departments {@link DepartmentApi}.
 	 */
-		function getDepartments($pageNumber = null, $itemsPerPage = null, $departmentFilter = "0", $startsWith = null, $orderFilter = null, $orderType = null) {
+		function getDepartments($pageNumber = null, $itemsPerPage = null, $departmentFilter = "0", $startsWith = null, $orderField = null, $orderType = null) {
 
 			$method = DEPARTMENTS . "/";
 
@@ -29,7 +29,7 @@
 							 "itemsPerPage" => $itemsPerPage,
 							 "departmentFilter" => $departmentFilter,
 							 "startsWith" => $startsWith,
-							 "orderFilter" => $orderFilter,
+							 "orderField" => $orderField,
 							 "orderType" => $orderType);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -259,7 +259,7 @@
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of departments {@link DepartmentApi}.
 	 */
-		function getFollowingDepartmentsForUser($iduser, $pageNumber = null, $itemsPerPage = null, $startsWith = null, $orderFilter = null, $orderType = null) {
+		function getFollowingDepartmentsForUser($iduser, $pageNumber = null, $itemsPerPage = null, $startsWith = null, $orderField = null, $orderType = null) {
 
 			$method = DEPARTMENTS . "/users/$iduser/following";
 
@@ -268,7 +268,7 @@
 			$params = array("pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
 							 "startsWith" => $startsWith,
-							 "orderFilter" => $orderFilter,
+							 "orderField" => $orderField,
 							 "orderType" => $orderType);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -285,13 +285,13 @@
 	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
 	 * @param departmentFilter Department filter to apply {@link DepartmentFilterApiType}. Default returns all departments (departmentFilter
 	 *            = 0).
-	 * @param startsWith Text to search starting with.            
+	 * @param startsWith Text to search starting with.
 	 * @param orderField Order field. Default set to NAME. {@link GroupOrderFieldFilterApiType} {@since 4.0}
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of departments {@link DepartmentApi}.
 	 * @since 3.4
 	 */
-		function getDepartmentsForUser($iduser, $pageNumber = null, $itemsPerPage = null, $departmentFilter = "0", $startsWith = null, $orderFilter = null, $orderType = null) {
+		function getDepartmentsForUser($iduser, $pageNumber = null, $itemsPerPage = null, $departmentFilter = "0", $startsWith = null, $orderField = null, $orderType = null) {
 
 			$method = DEPARTMENTS . "/users/$iduser";
 
@@ -301,7 +301,7 @@
 							 "itemsPerPage" => $itemsPerPage,
 							 "departmentFilter" => $departmentFilter,
 							 "startsWith" => $startsWith,
-							 "orderFilter" => $orderFilter,
+							 "orderField" => $orderField,
 							 "orderType" => $orderType);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -352,20 +352,16 @@
 	 * 
 	 * @param pageNumber Page number to return. Default set to 1.
 	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
-	 * @param orderField Order field. Default set to LASTNAME. {@link UserOrderFieldFilterApiType} {@since 4.0}
-	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of members {@link MemberApi}.
 	 */
-		function getMembers($iddepartment, $pageNumber = null, $itemsPerPage = null, $orderField = null, $orderType = null) {
+		function getMembers($iddepartment, $pageNumber = null, $itemsPerPage = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/members";
 
 			$verbmethod = "GET";
 
 			$params = array("pageNumber" => $pageNumber,
-							 "itemsPerPage" => $itemsPerPage,
-							 "orderField" => $orderField,
-							 "orderType" => $orderType);
+							 "itemsPerPage" => $itemsPerPage);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -379,20 +375,16 @@
 	 * 
 	 * @param pageNumber Page to return. Default set to 1
 	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
-	 * @param orderField Order field. Default set to LASTNAME. {@link UserOrderFieldFilterApiType} {@since 4.0}
-	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of departments {@link DepartmentApi}.
 	 */
-		function getFollowers($iddepartment, $pageNumber = null, $itemsPerPage = null, $orderField = null, $orderType = null) {
+		function getFollowers($iddepartment, $pageNumber = null, $itemsPerPage = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/following";
 
 			$verbmethod = "GET";
 
 			$params = array("pageNumber" => $pageNumber,
-							 "itemsPerPage" => $itemsPerPage,
-							 "orderField" => $orderField,
-							 "orderType" => $orderType);
+							 "itemsPerPage" => $itemsPerPage);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -542,7 +534,7 @@
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of documents {@link DocumentApi}.
 	 */
-		function getDocuments2($iddepartment, $pageNumber = null, $iddocument, $itemsPerPage = null, $orderField = null, $orderType = null) {
+		function getDocumentsById($iddepartment, $pageNumber = null, $iddocument, $itemsPerPage = null, $orderField = null, $orderType = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument";
 
@@ -565,11 +557,10 @@
 	 * 
 	 * @param orderField Order field. Default set to NAME. {@link DocumentOrderFieldFilterApiType} {@since 4.0}
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
-	 * 
 	 * @return A list of documents {@link DocumentApi}.
 	 * @since 3.5
 	 */
-		function getDocumentsById($iddepartment, $documents = null, $orderField = null, $orderType = null) {
+		function getDocumentsByIds($iddepartment, $documents = null, $orderField = null, $orderType = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/profiles";
 
@@ -728,7 +719,7 @@
 	 * @param password Password to set to access the Zlink. {@since 3.4}
 	 * @return A Zlink {@link UrlServiceResultApi}
 	 */
-		function createZlink2($iddepartment, $expiration = null, $iddocument, $password = null) {
+		function createDocumentZlink($iddepartment, $expiration = null, $iddocument, $password = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/zlink";
 
@@ -752,7 +743,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternaLink($iddepartment, $name = null, $url = null, $description = null) {
+		function createExternalLink($iddepartment, $name = null, $url = null, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/externallink";
 
@@ -777,7 +768,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternaLink2($iddepartment, $name = null, $iddocument, $url = null, $description = null) {
+		function createExternalLinkByDocumentId($iddepartment, $name = null, $iddocument, $url = null, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/externallink";
 
@@ -823,7 +814,7 @@
 	 * @param idLink Target document ID, i.e. the document to which it will be linked.
 	 * @return ID of the newly created link.
 	 */
-		function createInternaLink2($iddepartment, $idLink = null, $iddocument) {
+		function createInternaLinkByDocumentId($iddepartment, $idLink = null, $iddocument) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/internallink";
 

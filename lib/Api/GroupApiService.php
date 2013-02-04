@@ -21,7 +21,7 @@
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of groups. {@link GroupApi}
 	 */
-		function getGroups($pageNumber = null, $itemsPerPage = null, $groupTypes = null, $groupFilter = "1", $startsWith = null, $orderFilter = null, $orderType = null) {
+		function getGroups($pageNumber = null, $itemsPerPage = null, $groupTypes = null, $groupFilter = "1", $startsWith = null, $orderField = null, $orderType = null) {
 
 			$method = GROUPS . "/";
 
@@ -32,7 +32,7 @@
 							 "groupTypes" => $groupTypes,
 							 "groupFilter" => $groupFilter,
 							 "startsWith" => $startsWith,
-							 "orderFilter" => $orderFilter,
+							 "orderField" => $orderField,
 							 "orderType" => $orderType);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -189,7 +189,7 @@
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of documents {@link DocumentApi}.
 	 */
-		function getDocuments2($idgroup, $pageNumber = null, $iddocument, $itemsPerPage = null, $orderField = null, $orderType = null) {
+		function getDocumentsByDocumentId($idgroup, $pageNumber = null, $iddocument, $itemsPerPage = null, $orderField = null, $orderType = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument";
 
@@ -210,6 +210,7 @@
 	/**
 	 * Gets information for a list of ID of documents.
 	 * 
+	 * @param documents Comma-separated list of document IDs to filter the search. Default search in all.
 	 * @param orderField Order field. Default set to NAME. {@link GroupOrderFieldFilterApiType} {@since 4.0}
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of documents {@link DocumentApi}.
@@ -497,7 +498,7 @@
 	 * @param password Password to set to access the Zlink. {@since 3.4}
 	 * @return A Zlink {@link UrlServiceResultApi}
 	 */
-		function createZlink2($idgroup, $iddocument, $expiration = null, $password = null) {
+		function createDocumentZlink($idgroup, $expiration = null, $iddocument, $password = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/zlink";
 
@@ -521,7 +522,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternaLink($name = null, $idgroup, $url = null, $description = null) {
+		function createExternalLink($name = null, $idgroup, $url = null, $description = null) {
 
 			$method = GROUPS . "/$idgroup/externallink";
 
@@ -546,7 +547,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternaLink2($idgroup, $name = null, $iddocument, $url = null, $description = null) {
+		function createExternalLinkByDocumentId($idgroup, $name = null, $iddocument, $url = null, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/externallink";
 
@@ -590,7 +591,7 @@
 	 * @param idLink Target document ID, i.e. the document to which it will be linked.
 	 * @return ID of the newly created link.
 	 */
-		function createInternaLink2($idgroup, $idLink = null, $iddocument) {
+		function createInternaLinkByDocumentId($idgroup, $idLink = null, $iddocument) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/internallink";
 
@@ -610,20 +611,16 @@
 	 * 
 	 * @param pageNumber Page number to return. Default set to 1.
 	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
-	 * @param orderField Order field. Default set to NAME. {@link DocumentOrderFieldFilterApiType} {@since 4.0}
-	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of members {@link MemberApi}.
 	 */
-		function getMembers($pageNumber = null, $idgroup, $itemsPerPage = null, $orderField = null, $orderType = null) {
+		function getMembers($pageNumber = null, $idgroup, $itemsPerPage = null) {
 
 			$method = GROUPS . "/$idgroup/members";
 
 			$verbmethod = "GET";
 
 			$params = array("pageNumber" => $pageNumber,
-							 "itemsPerPage" => $itemsPerPage,
-							 "orderField" => $orderField,
-							 "orderType" => $orderType);
+							 "itemsPerPage" => $itemsPerPage);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 

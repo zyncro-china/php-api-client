@@ -64,6 +64,8 @@
 		define('PUSH', API_1 . "/pushservice");
 	
 		define('ENTITY', API_1 . "/entity");
+		
+		define('ENTITY', APPS . "/apps"); 
 	
 	}
 ?>

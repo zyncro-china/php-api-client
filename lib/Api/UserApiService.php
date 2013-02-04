@@ -60,7 +60,6 @@
 	 * @param experience Experience.
 	 * @param education Education.
 	 * @param emailVisibility Email visibility.
-	 * 
 	 * @since 4.0
 	 */
 		function editUser($department = null, $departmentVisibility = null, $country = null, $province = null, $city = null, $timezone = null, $dateFormat = null, $telephone1 = null, $ext1 = null, $telephone1Visibility = null, $telephone2 = null, $ext2 = null, $telephone2Visibility = null, $mobile = null, $mobileVisibility = null, $address = null, $website = null, $skype = null, $skypeShowIfConnected = null, $others = null, $skills = null, $experience = null, $education = null, $emailVisibility = null) {
@@ -196,7 +195,7 @@
 	/**
 	 * Gets the full or short profile information for a list of ID of users.
 	 * 
-	 * @param users Comma-separed lif of ID of users or emails to be returned.
+	 * @param users comma-separated list of ID of users or emails to be returned.
 	 * @param onlyShort Determines whether short or complete profile information is returned. Default is false and returns complete profile.
 	 * @return User profile information {@link UserApi}
 	 */
@@ -222,10 +221,11 @@
 	 * @param text Text to search matching the name and last name of the user's contacts.
 	 * @param pageNumber Page number to return. Default set to 1.
 	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10
-	 * @param type Type of contact users to return (see Contact user types). Default returns all contacts. {@since 3.4}
+	 * @param type Type of contact users to return. {@link UserFilterApiType} Default returns all contacts. {@since 3.4}
+	 * @param onlyShort Determines whether short or complete profile information is returned. Default is true and returns small profile info. {@since 4.0}
 	 * @return A list of users {@link UserApi} matching the search.
 	 */
-		function searchContacts($text = null, $pageNumber = null, $itemsPerPage = null, $type = "0") {
+		function searchContacts($text = null, $pageNumber = null, $itemsPerPage = null, $type = null, $onlyShort = "true") {
 
 			$method = USERS . "/searchcontacts";
 
@@ -234,7 +234,8 @@
 			$params = array("text" => $text,
 							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
-							 "type" => $type);
+							 "type" => $type,
+							 "onlyShort" => $onlyShort);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -312,7 +313,6 @@
 	 * Obtains a list of associated users.
 	 * 
 	 * @return A list of associated users. {@link AssociateUserApi}
-	 * 
 	 * @since 4.0
 	 */
 		function getShortContacts($pageNumber = null, $itemsPerPage = null, $type = "0") {
@@ -337,7 +337,6 @@
 	 * 
 	 * @param email email of the new associated user.
 	 * @param password password of the new associated user.
-	 * 
 	 * @since 4.0
 	 */
 		function getAssociatedUsers() {
@@ -354,11 +353,12 @@
 		}
 
 	/**
-	 * Associate users from diferent organizations.
+	 * Gets the list of the Apps for the logged user.
 	 * 
-	 * @param email email of the new associated user.
-	 * @param password password of the new associated user.
-	 * 
+	 * @param pageNumber Page number to return. Default set to 1.
+	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
+	 * @param availabilityType Availability Type. Default set to 0. {@link AppAvailabilityApiType}
+	 * @return A list of apps {@link AppApi}
 	 * @since 4.0
 	 */
 		function associateUser($email = null, $password = null) {
@@ -369,6 +369,32 @@
 
 			$params = array("email" => $email,
 							 "password" => $password);
+
+			$params = array_filter($params, function($item) { return !is_null($item); });
+
+			$response = json_decode($this->zyncroApi->callApi( $method, $params, $verbmethod), true);
+
+			return $response;
+		}
+
+	/**
+	 * Gets the list of the Apps for the logged user.
+	 * 
+	 * @param pageNumber Page number to return. Default set to 1.
+	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
+	 * @param availabilityType Availability Type. Default set to 0. {@link AppAvailabilityApiType}
+	 * @return A list of apps {@link AppApi}
+	 * @since 4.0
+	 */
+		function getApps($pageNumber = null, $itemsPerPage = null, $availabilityType = "0") {
+
+			$method = USERS . "/apps";
+
+			$verbmethod = "GET";
+
+			$params = array("pageNumber" => $pageNumber,
+							 "itemsPerPage" => $itemsPerPage,
+							 "availabilityType" => $availabilityType);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 

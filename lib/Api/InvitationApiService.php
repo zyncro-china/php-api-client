@@ -106,7 +106,7 @@
 	/**
 	 * Sends an invitation to a user to become member of a group.
 	 * 
-	 * @param idUser User ID of the user to invite.
+	 * @param idUser User ID of the user to invite. Required if users is empty.
 	 * @param idGroup Group ID of the invitation.
 	 * @param isEditor Parameter to set the new member as editor. Default is false.
 	 * @param isInviter Parameter to set the new member as inviter. Default is false.
@@ -123,6 +123,41 @@
 			$verbmethod = "POST";
 
 			$params = array("idUser" => $idUser,
+							 "idGroup" => $idGroup,
+							 "isEditor" => $isEditor,
+							 "isInviter" => $isInviter,
+							 "isTaskManager" => $isTaskManager,
+							 "isOwner" => $isOwner,
+							 "isCommenter" => $isCommenter,
+							 "comment" => $comment);
+
+			$params = array_filter($params, function($item) { return !is_null($item); });
+
+			$response = json_decode($this->zyncroApi->callApi( $method, $params, $verbmethod), true);
+
+			return $response;
+		}
+
+	/**
+	 * Sends an invitation to a list of users to become members of a group.
+	 * 
+	 * @param users Comma-separated list of User ID to invite. Required if idUser is empty.
+	 * @param idGroup Group ID of the invitation.
+	 * @param isEditor Parameter to set the new member as editor. Default is false.
+	 * @param isInviter Parameter to set the new member as inviter. Default is false.
+	 * @param isTaskManager Parameter to set the new member as task manager. Default is false.
+	 * @param isOwner Parameter to set the new member as owner. Default is false.
+	 * @param isCommenter Parameter to set the new member as commenter. Default is false.
+	 * @param comment Optional comment to add to the invitation
+	 * @since 4.0
+	 */
+		function sendGroupInvitations($users = null, $idGroup = null, $isEditor = "false", $isInviter = "false", $isTaskManager = "false", $isOwner = "false", $isCommenter = "false", $comment = null) {
+
+			$method = INVITATIONS . "/groupinvitations";
+
+			$verbmethod = "POST";
+
+			$params = array("users" => $users,
 							 "idGroup" => $idGroup,
 							 "isEditor" => $isEditor,
 							 "isInviter" => $isInviter,
@@ -162,11 +197,34 @@
 		}
 
 	/**
-	 * Sends an invitation to an external user to be a contact.
+	 * Sends an invitation to a list of external users to be a contact.
 	 * 
-	 * @param idUser User ID or email of the user to invite.
+	 * @param users Comma-separated list of User ID to invite. Required if idUser is empty.
 	 * @param comment Optional comment to add to the invitation
-	 * @since 3.4
+	 * @since 4.0
+	 */
+		function sendExternalContactInvitations($users = null, $comment = null) {
+
+			$method = INVITATIONS . "/externalcontactinvitations";
+
+			$verbmethod = "POST";
+
+			$params = array("users" => $users,
+							 "comment" => $comment);
+
+			$params = array_filter($params, function($item) { return !is_null($item); });
+
+			$response = json_decode($this->zyncroApi->callApi( $method, $params, $verbmethod), true);
+
+			return $response;
+		}
+
+	/**
+	 * Sends an invitation to a list of external users to be a contact.
+	 * 
+	 * @param users Comma-separated list of User ID to invite. Required if idUser is empty.
+	 * @param comment Optional comment to add to the invitation
+	 * @since 4.0
 	 */
 		function sendInvitation($appIdOrEmail = null, $shareGroupURN = null, $enableEditor = null, $enableInviter = null, $enableTaskManager = null, $comment = null, $isOwner = null) {
 

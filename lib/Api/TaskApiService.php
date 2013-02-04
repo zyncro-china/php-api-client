@@ -12,17 +12,25 @@
 	 * 
 	 * @param pageNumber Page number to return. Default set to 1.
 	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
+	 * @param taskType Type of the task. {@link TaskListFilterApiType} {@since 4.0}
+	 * @param groups Comma-separated list of group IDs to filter. {@since 4.0}
+	 * @param orderField Order field. Default set to NAME. {@link TaskInfoFieldFilterApiType} {@since 4.0}
+	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of tasks {@link TaskApi}
 	 * @since 3.4
 	 */
-		function getTasks($pageNumber = null, $itemsPerPage = null) {
+		function getTasks($pageNumber = null, $itemsPerPage = null, $groups = null, $taskType = null, $orderField = null, $orderType = null) {
 
 			$method = TASKS . "/";
 
 			$verbmethod = "GET";
 
 			$params = array("pageNumber" => $pageNumber,
-							 "itemsPerPage" => $itemsPerPage);
+							 "itemsPerPage" => $itemsPerPage,
+							 "groups" => $groups,
+							 "taskType" => $taskType,
+							 "orderField" => $orderField,
+							 "orderType" => $orderType);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -67,7 +75,7 @@
 	 * @param eventUrn The event associated of the task to create
 	 * @since 3.4
 	 */
-		function createTask($title = null, $description = null, $responsible = null, $responsibleText = null, $dueDate = null, $type = null, $status = null, $following = null, $urnGroup = null, $eventUrn = null) {
+		function createTask($title = null, $description = null, $responsible = null, $responsibleText = null, $dueDate = null, $type = null, $status = "0", $following = null, $urnGroup = null, $eventUrn = null) {
 
 			$method = TASKS . "/";
 
