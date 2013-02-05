@@ -133,7 +133,7 @@
 	 * 
 	 * @param password New password.
 	 */
-		function changePassword($password = null, $iduser) {
+		function changePassword($iduser, $password = null) {
 
 			$method = ORGANIZATION . "/users/$iduser/password";
 
@@ -167,7 +167,7 @@
 	 * @param enabled Changes whether or not this user has been enabled for login.
 	 * @param attributes Additional attributes to store in the user. They must be in JSON format.
 	 */
-		function editUser($name = null, $lastname = null, $iduser, $email = null, $area = null, $position = null, $telephone1 = null, $telephone1ext = null, $telephone2 = null, $telephone2ext = null, $mobile = null, $address = null, $skype = null, $other = null, $enabled = "true", $attributes = null) {
+		function editUser($iduser, $name = null, $lastname = null, $email = null, $area = null, $position = null, $telephone1 = null, $telephone1ext = null, $telephone2 = null, $telephone2ext = null, $mobile = null, $address = null, $skype = null, $other = null, $enabled = "true", $attributes = null) {
 
 			$method = ORGANIZATION . "/users/$iduser";
 
@@ -202,7 +202,7 @@
 	 * @param idReceptionUser ID of user who will become the new main owner of all the groups/departments where the user to be deleted is
 	 *            main owner. If not given all these groups/departments will be deleted.
 	 */
-		function deleteUser($idReceptionUser = null, $iduser) {
+		function deleteUser($iduser, $idReceptionUser = null) {
 
 			$method = ORGANIZATION . "/users/$iduser";
 

@@ -138,7 +138,7 @@
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of documents. {@link DocumentApi}
 	 */
-		function getDocuments($pageNumber = null, $idgroup, $itemsPerPage = null, $orderField = null, $orderType = null) {
+		function getDocuments($idgroup, $pageNumber = null, $itemsPerPage = null, $orderField = null, $orderType = null) {
 
 			$method = GROUPS . "/$idgroup/documents";
 
@@ -164,7 +164,7 @@
 	 * @return A list of versions of a document {@link DocumentVersionApi}
 	 * @since 3.5
 	 */
-		function getDocumentVersions($idgroup, $pageNumber = null, $iddocument, $itemsPerPage = null) {
+		function getDocumentVersions($idgroup, $iddocument, $pageNumber = null, $itemsPerPage = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/versions";
 
@@ -189,7 +189,7 @@
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of documents {@link DocumentApi}.
 	 */
-		function getDocumentsByDocumentId($idgroup, $pageNumber = null, $iddocument, $itemsPerPage = null, $orderField = null, $orderType = null) {
+		function getDocumentsByDocumentId($idgroup, $iddocument, $pageNumber = null, $itemsPerPage = null, $orderField = null, $orderType = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument";
 
@@ -344,7 +344,7 @@
 	 * @param description Description of the folder to create.
 	 * @return ID of the newly created folder.
 	 */
-		function createFolder($name = null, $idgroup, $description = null) {
+		function createFolder($idgroup, $name = null, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/folder";
 
@@ -390,7 +390,7 @@
 	 * @param name Name of the folder to create.
 	 * @param description Description of the folder to create.
 	 */
-		function createFolderInDocument($idgroup, $name = null, $iddocument, $description = null) {
+		function createFolderInDocument($idgroup, $iddocument, $name = null, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/folder";
 
@@ -414,7 +414,7 @@
 	 * @return A folder {@link DocumentApi}
 	 * @since 3.5
 	 */
-		function createFolderInDocumentAndGetInfo($idgroup, $name = null, $iddocument, $description = null) {
+		function createFolderInDocumentAndGetInfo($idgroup, $iddocument, $name = null, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/createfolder";
 
@@ -475,7 +475,7 @@
 	 * @param password Password to set to access the Zlink. {@since 3.4}
 	 * @return A Zlink {@link UrlServiceResultApi}
 	 */
-		function createZlink($expiration = null, $idgroup, $password = null) {
+		function createZlink($idgroup, $expiration = null, $password = null) {
 
 			$method = GROUPS . "/$idgroup/zlink";
 
@@ -498,7 +498,7 @@
 	 * @param password Password to set to access the Zlink. {@since 3.4}
 	 * @return A Zlink {@link UrlServiceResultApi}
 	 */
-		function createDocumentZlink($idgroup, $expiration = null, $iddocument, $password = null) {
+		function createDocumentZlink($idgroup, $iddocument, $expiration = null, $password = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/zlink";
 
@@ -522,7 +522,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternalLink($name = null, $idgroup, $url = null, $description = null) {
+		function createExternalLink($idgroup, $name = null, $url = null, $description = null) {
 
 			$method = GROUPS . "/$idgroup/externallink";
 
@@ -547,7 +547,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternalLinkByDocumentId($idgroup, $name = null, $iddocument, $url = null, $description = null) {
+		function createExternalLinkByDocumentId($idgroup, $iddocument, $name = null, $url = null, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/externallink";
 
@@ -570,7 +570,7 @@
 	 * @param idLink Target document ID, i.e. the document to which it will be linked.
 	 * @return ID of the newly created link.
 	 */
-		function createInternaLink($idLink = null, $idgroup) {
+		function createInternaLink($idgroup, $idLink = null) {
 
 			$method = GROUPS . "/$idgroup/internallink";
 
@@ -591,7 +591,7 @@
 	 * @param idLink Target document ID, i.e. the document to which it will be linked.
 	 * @return ID of the newly created link.
 	 */
-		function createInternaLinkByDocumentId($idgroup, $idLink = null, $iddocument) {
+		function createInternaLinkByDocumentId($idgroup, $iddocument, $idLink = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/internallink";
 
@@ -613,7 +613,7 @@
 	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
 	 * @return A list of members {@link MemberApi}.
 	 */
-		function getMembers($pageNumber = null, $idgroup, $itemsPerPage = null) {
+		function getMembers($idgroup, $pageNumber = null, $itemsPerPage = null) {
 
 			$method = GROUPS . "/$idgroup/members";
 
@@ -659,7 +659,7 @@
 	 * @param isOwner Parameter to set the member as owner.
 	 * @since 3.4
 	 */
-		function editMember($idgroup, $isEditor = null, $idMemberUser, $isTaskManager = null, $isInviter = null, $isCommenter = null, $isOwner = null) {
+		function editMember($idgroup, $idMemberUser, $isEditor = null, $isTaskManager = null, $isInviter = null, $isCommenter = null, $isOwner = null) {
 
 			$method = GROUPS . "/$idgroup/members/$idMemberUser";
 
@@ -706,7 +706,7 @@
 	 * @param isCommenter Parameter to set the new member as inviter. Default is true. {@since 3.4}
 	 * @param isOwner Parameter to set the new member as owner. Default is false.
 	 */
-		function addMember($idUser = null, $idgroup, $isEditor = "false", $isTaskManager = "false", $isInviter = "false", $isCommenter = "true", $isOwner = "false") {
+		function addMember($idgroup, $idUser = null, $isEditor = "false", $isTaskManager = "false", $isInviter = "false", $isCommenter = "true", $isOwner = "false") {
 
 			$method = GROUPS . "/$idgroup/members";
 
@@ -976,7 +976,7 @@
 	/**
 	 * @deprecated Use {@link IGroupApiService#upload(String, String, String, String, String, String, Long, InputStream)}
 	 */
-		function uploadDocumentNewVersion($idgroup, $idversion = null, $iddocument, $description = null, $comment = null, $fileName = null, $length = null, $file = null) {
+		function uploadDocumentNewVersion($idgroup, $iddocument, $idversion = null, $description = null, $comment = null, $fileName = null, $length = null, $file = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/upload/@oauthtoken";
 

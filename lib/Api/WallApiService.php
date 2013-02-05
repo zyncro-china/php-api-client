@@ -372,7 +372,7 @@
 	 *            parameter {@since 4.0}
 	 * @return A list of events {@link EventApi}
 	 */
-		function getGroupEvents($date = null, $idgroup, $itemsCount = null, $eventTypes = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $users = null, $pageNumber = null) {
+		function getGroupEvents($idgroup, $date = null, $itemsCount = null, $eventTypes = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $users = null, $pageNumber = null) {
 
 			$method = WALL . "/$idgroup";
 
@@ -411,7 +411,7 @@
 	 *            parameter {@since 4.0}
 	 * @return A list of events {@link EventApi}
 	 */
-		function getDocumentEvents($idgroup, $date = null, $itemsCount = null, $iddocument, $eventTypes = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $pageNumber = null) {
+		function getDocumentEvents($idgroup, $iddocument, $date = null, $itemsCount = null, $eventTypes = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $pageNumber = null) {
 
 			$method = WALL . "/$idgroup/documents/$iddocument";
 
@@ -484,7 +484,7 @@
 	 * @return A list of events {@link EventApi}
 	 * @since 3.5
 	 */
-		function getProfileEvents($date = null, $iduser, $itemsCount = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $pageNumber = null) {
+		function getProfileEvents($iduser, $date = null, $itemsCount = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $pageNumber = null) {
 
 			$method = WALL . "/profile/$iduser";
 
@@ -557,7 +557,7 @@
 	 * @param extraField3 Third extra sort field for Event view type to return the events {@since 4.0.1}
 	 * @return ID of the newly published message.
 	 */
-		function publishInGroup($comment = null, $idgroup, $htmlComment = null, $indexableContent = null, $attributes = null, $idevent = null, $iddocument = null, $usersToNotify = null, $forceNotifyAllMembers = "false", $delayNotification = "false", $votable = "false", $extraField1 = null, $extraField2 = null, $extraField3 = null) {
+		function publishInGroup($idgroup, $comment = null, $htmlComment = null, $indexableContent = null, $attributes = null, $idevent = null, $iddocument = null, $usersToNotify = null, $forceNotifyAllMembers = "false", $delayNotification = "false", $votable = "false", $extraField1 = null, $extraField2 = null, $extraField3 = null) {
 
 			$method = WALL . "/$idgroup";
 
@@ -729,7 +729,7 @@
 	 * @param extraField3 Third extra sort field for Event view type to return the events {@since 4.0.1}
 	 * @return ID of the newly published event.
 	 */
-		function commentInEvent($comment = null, $idevent, $htmlComment = null, $indexableContent = null, $attributes = null, $usersToNotify = null, $forceNotifyAllMembers = "false", $delayNotification = "false", $extraField1 = null, $extraField2 = null, $extraField3 = null) {
+		function commentInEvent($idevent, $comment = null, $htmlComment = null, $indexableContent = null, $attributes = null, $usersToNotify = null, $forceNotifyAllMembers = "false", $delayNotification = "false", $extraField1 = null, $extraField2 = null, $extraField3 = null) {
 
 			$method = WALL . "/feeds/$idevent";
 
@@ -761,7 +761,7 @@
 	 * @param indexableContent Text to index for search purposes.
 	 * @param attributes Additional attributes to store in the event. They must be in JSON format.
 	 */
-		function editEvent($comment = null, $idevent, $htmlComment = null, $indexableContent = null, $attributes = null) {
+		function editEvent($idevent, $comment = null, $htmlComment = null, $indexableContent = null, $attributes = null) {
 
 			$method = WALL . "/feed/$idevent";
 
@@ -809,7 +809,7 @@
 	 * @param itemsPerPage Number of items to return per page (between 1 and 50). Default set to 10.
 	 * @return A list of users {@link WallUserApi}
 	 */
-		function getLikes($pageNumber = null, $idevent, $itemsPerPage = null) {
+		function getLikes($idevent, $pageNumber = null, $itemsPerPage = null) {
 
 			$method = WALL . "/feeds/$idevent/likes";
 
@@ -1042,7 +1042,7 @@
 	 * @param voteType Determines if vote is positive, negative or deleted. {@link VoteTypeApi}
 	 * @since 4.0
 	 */
-		function vote($voteType = null, $idevent) {
+		function vote($idevent, $voteType = null) {
 
 			$method = WALL . "/feeds/$idevent/vote";
 

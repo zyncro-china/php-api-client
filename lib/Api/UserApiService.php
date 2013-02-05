@@ -108,7 +108,7 @@
 	 * @param followType The follow type of users to return. Default returns all types. {@link UserFollowApiType}
 	 * @return A list of contact users {@link UserApi}
 	 */
-		function getFollowing($pageNumber = null, $iduser, $itemsPerPage = null, $followType = "2") {
+		function getFollowing($iduser, $pageNumber = null, $itemsPerPage = null, $followType = "2") {
 
 			$method = USERS . "/$iduser/following";
 

@@ -112,7 +112,7 @@
 	 * @param following Whether or not follow this task in meetings
 	 * @since 3.4
 	 */
-		function editTask($title = null, $idtask, $description = null, $responsible = null, $responsibleText = null, $dueDate = null, $type = null, $status = null, $following = null) {
+		function editTask($idtask, $title = null, $description = null, $responsible = null, $responsibleText = null, $dueDate = null, $type = null, $status = null, $following = null) {
 
 			$method = TASKS . "/$idtask";
 

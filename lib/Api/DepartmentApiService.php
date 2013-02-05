@@ -419,7 +419,7 @@
 	 * @param isOwner Parameter to set the member as owner.
 	 * @since 3.4
 	 */
-		function editMember($iddepartment, $isOwner = null, $idMemberUser) {
+		function editMember($iddepartment, $idMemberUser, $isOwner = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/members/$idMemberUser";
 
@@ -509,7 +509,7 @@
 	 * @return A list of versions of a document {@link DocumentVersionApi}
 	 * @since 3.5
 	 */
-		function getDocumentVersions($iddepartment, $pageNumber = null, $iddocument, $itemsPerPage = null) {
+		function getDocumentVersions($iddepartment, $iddocument, $pageNumber = null, $itemsPerPage = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/versions";
 
@@ -534,7 +534,7 @@
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of documents {@link DocumentApi}.
 	 */
-		function getDocumentsById($iddepartment, $pageNumber = null, $iddocument, $itemsPerPage = null, $orderField = null, $orderType = null) {
+		function getDocumentsById($iddepartment, $iddocument, $pageNumber = null, $itemsPerPage = null, $orderField = null, $orderType = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument";
 
@@ -603,7 +603,7 @@
 	 * @param name Name of the folder to create.
 	 * @param description Description of the folder to create.
 	 */
-		function createFolder($name = null, $iddepartment, $description = null) {
+		function createFolder($iddepartment, $name = null, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/folder";
 
@@ -649,7 +649,7 @@
 	 * @param name Name of the folder to create.
 	 * @param description Description of the folder to create.
 	 */
-		function createFolderInDocument($iddepartment, $name = null, $iddocument, $description = null) {
+		function createFolderInDocument($iddepartment, $iddocument, $name = null, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/folder";
 
@@ -673,7 +673,7 @@
 	 * @return A folder {@link DocumentApi}
 	 * @since 3.5
 	 */
-		function createFolderInDocumentAndGetInfo($iddepartment, $name = null, $iddocument, $description = null) {
+		function createFolderInDocumentAndGetInfo($iddepartment, $iddocument, $name = null, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/createfolder";
 
@@ -696,7 +696,7 @@
 	 * @param password Password to set to access the Zlink. {@since 3.4}
 	 * @return A Zlink {@link UrlServiceResultApi}
 	 */
-		function createZlink($expiration = null, $iddepartment, $password = null) {
+		function createZlink($iddepartment, $expiration = null, $password = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/zlink";
 
@@ -719,7 +719,7 @@
 	 * @param password Password to set to access the Zlink. {@since 3.4}
 	 * @return A Zlink {@link UrlServiceResultApi}
 	 */
-		function createDocumentZlink($iddepartment, $expiration = null, $iddocument, $password = null) {
+		function createDocumentZlink($iddepartment, $iddocument, $expiration = null, $password = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/zlink";
 
@@ -768,7 +768,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternalLinkByDocumentId($iddepartment, $name = null, $iddocument, $url = null, $description = null) {
+		function createExternalLinkByDocumentId($iddepartment, $iddocument, $name = null, $url = null, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/externallink";
 
@@ -814,7 +814,7 @@
 	 * @param idLink Target document ID, i.e. the document to which it will be linked.
 	 * @return ID of the newly created link.
 	 */
-		function createInternaLinkByDocumentId($iddepartment, $idLink = null, $iddocument) {
+		function createInternaLinkByDocumentId($iddepartment, $iddocument, $idLink = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/internallink";
 
@@ -1110,7 +1110,7 @@
 	/**
 	 * @deprecated Use {@link IDepartmentApiService#upload(String, String, String, String, String, String, Long, InputStream)}
 	 */
-		function uploadDocumentNewVersion($iddepartment, $idversion = null, $iddocument, $description = null, $comment = null, $transferUrn = null, $fileName = null, $length = null, $file = null) {
+		function uploadDocumentNewVersion($iddepartment, $iddocument, $idversion = null, $description = null, $comment = null, $transferUrn = null, $fileName = null, $length = null, $file = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/upload/@oauthtoken";
 
