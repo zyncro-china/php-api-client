@@ -103,7 +103,7 @@
 	 *            {@link LanguageApiType}
 	 * @param attributes Additional attributes to store in the user. They must be in JSON format.
 	 */
-		function addUser($name = null, $lastname = null, $email = null, $password = null, $storage = null, $canPublishCorporateFeed = "false", $canCreateGroups = "false", $canCreateDepartments = "false", $isAdministrator = "false", $lang = null, $attributes = null) {
+		function addUser($name, $lastname, $email, $storage, $canPublishCorporateFeed = "false", $canCreateGroups = "false", $canCreateDepartments = "false", $isAdministrator = "false", $password = null, $lang = null, $attributes = null) {
 
 			$method = ORGANIZATION . "/users";
 
@@ -112,12 +112,12 @@
 			$params = array("name" => $name,
 							 "lastname" => $lastname,
 							 "email" => $email,
-							 "password" => $password,
 							 "storage" => $storage,
 							 "canPublishCorporateFeed" => $canPublishCorporateFeed,
 							 "canCreateGroups" => $canCreateGroups,
 							 "canCreateDepartments" => $canCreateDepartments,
 							 "isAdministrator" => $isAdministrator,
+							 "password" => $password,
 							 "lang" => $lang,
 							 "attributes" => $attributes);
 
@@ -167,13 +167,14 @@
 	 * @param enabled Changes whether or not this user has been enabled for login.
 	 * @param attributes Additional attributes to store in the user. They must be in JSON format.
 	 */
-		function editUser($iduser, $name = null, $lastname = null, $email = null, $area = null, $position = null, $telephone1 = null, $telephone1ext = null, $telephone2 = null, $telephone2ext = null, $mobile = null, $address = null, $skype = null, $other = null, $enabled = "true", $attributes = null) {
+		function editUser($iduser, $enabled = "true", $name = null, $lastname = null, $email = null, $area = null, $position = null, $telephone1 = null, $telephone1ext = null, $telephone2 = null, $telephone2ext = null, $mobile = null, $address = null, $skype = null, $other = null, $attributes = null) {
 
 			$method = ORGANIZATION . "/users/$iduser";
 
 			$verbmethod = "POST";
 
-			$params = array("name" => $name,
+			$params = array("enabled" => $enabled,
+							 "name" => $name,
 							 "lastname" => $lastname,
 							 "email" => $email,
 							 "area" => $area,
@@ -186,7 +187,6 @@
 							 "address" => $address,
 							 "skype" => $skype,
 							 "other" => $other,
-							 "enabled" => $enabled,
 							 "attributes" => $attributes);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -224,7 +224,7 @@
 	 * @param length The size of the file to upload in bytes.
 	 * @since 3.5
 	 */
-		function uploadOrganizationLogo($length = null, $file = null) {
+		function uploadOrganizationLogo($length, $file) {
 
 			$method = ORGANIZATION . "/uploadlogo/@oauthtoken";
 
@@ -265,7 +265,7 @@
 	 * @param ips Comma-separated list of users IDs
 	 * @since 4.0
 	 */
-		function updateIPWhiteList($enable = null, $ips = null) {
+		function updateIPWhiteList($enable, $ips = null) {
 
 			$method = ORGANIZATION . "/updateipwhitelist";
 
@@ -297,7 +297,7 @@
 	 * @return User profile information {@link UserApi}
 	 * @since 4.0
 	 */
-		function createOrganizacion($consumerkey, $organizationName = null, $organizationQuota = null, $totalUsers = null, $organizationType = null, $userName = null, $lastName = null, $password = null, $email = null, $userQuota = null, $language = null) {
+		function createOrganizacion($consumerkey, $organizationName, $organizationQuota, $totalUsers, $userName, $lastName, $password, $email, $userQuota, $organizationType = null, $language = null) {
 
 			$method = ORGANIZATION . "/create/$consumerkey";
 
@@ -306,12 +306,12 @@
 			$params = array("organizationName" => $organizationName,
 							 "organizationQuota" => $organizationQuota,
 							 "totalUsers" => $totalUsers,
-							 "organizationType" => $organizationType,
 							 "userName" => $userName,
 							 "lastName" => $lastName,
 							 "password" => $password,
 							 "email" => $email,
 							 "userQuota" => $userQuota,
+							 "organizationType" => $organizationType,
 							 "language" => $language);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -330,15 +330,15 @@
 	 * @return A list of apps {@link AppApi}
 	 * @since 4.0
 	 */
-		function getApps($pageNumber = null, $itemsPerPage = null, $availabilityType = "0") {
+		function getApps($availabilityType = "0", $pageNumber = null, $itemsPerPage = null) {
 
 			$method = ORGANIZATION . "/apps";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
-							 "itemsPerPage" => $itemsPerPage,
-							 "availabilityType" => $availabilityType);
+			$params = array("availabilityType" => $availabilityType,
+							 "pageNumber" => $pageNumber,
+							 "itemsPerPage" => $itemsPerPage);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 

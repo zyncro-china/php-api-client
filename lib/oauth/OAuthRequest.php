@@ -338,6 +338,10 @@ class OAuthRequest
 		$values = array_values($this->param);
 		array_multisort($keys, SORT_ASC, $values, SORT_ASC);
         */
+        
+        // Fix when login by POST with username and password
+        foreach ($_REQUEST as $key => $value) unset($this->param[$key]);
+
         $params     = $this->param;
 		$normalized = array();
 

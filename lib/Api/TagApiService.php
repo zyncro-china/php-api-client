@@ -64,7 +64,7 @@
 	 * @param tagType The type of the tag {@link TagApiType} to create
 	 * @return The created tag {@link TagApi}
 	 */
-		function createTag($name = null, $tagType = null) {
+		function createTag($name, $tagType) {
 
 			$method = TAGS . "/";
 

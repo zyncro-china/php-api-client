@@ -27,19 +27,19 @@
 	 *            parameter {@since 4.0}
 	 * @return A list of events {@link EventApi}
 	 */
-		function getEvents($date = null, $itemsCount = null, $eventTypes = null, $includeHtml = "false", $includePrivates = "true", $includePropertiesPreview = "false", $viewType = "0", $users = null, $pageNumber = null) {
+		function getEvents($includeHtml = "false", $includePrivates = "true", $includePropertiesPreview = "false", $viewType = "0", $date = null, $itemsCount = null, $eventTypes = null, $users = null, $pageNumber = null) {
 
 			$method = WALL . "/";
 
 			$verbmethod = "GET";
 
-			$params = array("date" => $date,
-							 "itemsCount" => $itemsCount,
-							 "eventTypes" => $eventTypes,
-							 "includeHtml" => $includeHtml,
+			$params = array("includeHtml" => $includeHtml,
 							 "includePrivates" => $includePrivates,
 							 "includePropertiesPreview" => $includePropertiesPreview,
 							 "viewType" => $viewType,
+							 "date" => $date,
+							 "itemsCount" => $itemsCount,
+							 "eventTypes" => $eventTypes,
 							 "users" => $users,
 							 "pageNumber" => $pageNumber);
 
@@ -69,18 +69,18 @@
 	 *            parameter {@since 4.0}
 	 * @return A list of events {@link EventApi}
 	 */
-		function getCompanyFeedEvents($date = null, $itemsCount = null, $eventTypes = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $users = null, $pageNumber = null) {
+		function getCompanyFeedEvents($includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $date = null, $itemsCount = null, $eventTypes = null, $users = null, $pageNumber = null) {
 
 			$method = WALL . "/companyfeed";
 
 			$verbmethod = "GET";
 
-			$params = array("date" => $date,
-							 "itemsCount" => $itemsCount,
-							 "eventTypes" => $eventTypes,
-							 "includeHtml" => $includeHtml,
+			$params = array("includeHtml" => $includeHtml,
 							 "includePropertiesPreview" => $includePropertiesPreview,
 							 "viewType" => $viewType,
+							 "date" => $date,
+							 "itemsCount" => $itemsCount,
+							 "eventTypes" => $eventTypes,
 							 "users" => $users,
 							 "pageNumber" => $pageNumber);
 
@@ -112,21 +112,21 @@
 	 * @param extraField3 Third extra sort field for Event view type to return the events {@since 4.0.1}
 	 * @return ID of the newly published event.
 	 */
-		function publishInCompanyFeed($comment = null, $htmlComment = null, $indexableContent = null, $attributes = null, $idevent = null, $usersToNotify = null, $forceNotifyAllMembers = "false", $delayNotification = "false", $votable = "false", $extraField1 = null, $extraField2 = null, $extraField3 = null) {
+		function publishInCompanyFeed($forceNotifyAllMembers = "false", $delayNotification = "false", $votable = "false", $comment = null, $htmlComment = null, $indexableContent = null, $attributes = null, $idevent = null, $usersToNotify = null, $extraField1 = null, $extraField2 = null, $extraField3 = null) {
 
 			$method = WALL . "/companyfeed";
 
 			$verbmethod = "POST";
 
-			$params = array("comment" => $comment,
+			$params = array("forceNotifyAllMembers" => $forceNotifyAllMembers,
+							 "delayNotification" => $delayNotification,
+							 "votable" => $votable,
+							 "comment" => $comment,
 							 "htmlComment" => $htmlComment,
 							 "indexableContent" => $indexableContent,
 							 "attributes" => $attributes,
 							 "idevent" => $idevent,
 							 "usersToNotify" => $usersToNotify,
-							 "forceNotifyAllMembers" => $forceNotifyAllMembers,
-							 "delayNotification" => $delayNotification,
-							 "votable" => $votable,
 							 "extraField1" => $extraField1,
 							 "extraField2" => $extraField2,
 							 "extraField3" => $extraField3);
@@ -176,18 +176,18 @@
 	 *            parameter {@since 4.0}
 	 * @return A list of events {@link EventApi}
 	 */
-		function getPersonalFeedEvents($date = null, $itemsCount = null, $eventTypes = null, $includeHtml = null, $includePropertiesPreview = "false", $viewType = "0", $users = null, $pageNumber = null) {
+		function getPersonalFeedEvents($includePropertiesPreview = "false", $viewType = "0", $date = null, $itemsCount = null, $eventTypes = null, $includeHtml = null, $users = null, $pageNumber = null) {
 
 			$method = WALL . "/personalfeed";
 
 			$verbmethod = "GET";
 
-			$params = array("date" => $date,
+			$params = array("includePropertiesPreview" => $includePropertiesPreview,
+							 "viewType" => $viewType,
+							 "date" => $date,
 							 "itemsCount" => $itemsCount,
 							 "eventTypes" => $eventTypes,
 							 "includeHtml" => $includeHtml,
-							 "includePropertiesPreview" => $includePropertiesPreview,
-							 "viewType" => $viewType,
 							 "users" => $users,
 							 "pageNumber" => $pageNumber);
 
@@ -218,21 +218,21 @@
 	 * @param extraField3 Third extra sort field for Event view type to return the events {@since 4.0.1}
 	 * @return ID of the newly published event.
 	 */
-		function publishInPersonalFeed($comment = null, $htmlComment = null, $indexableContent = null, $attributes = null, $idevent = null, $usersToNotify = null, $forceNotifyAllMembers = "false", $delayNotification = "false", $votable = "false", $extraField1 = null, $extraField2 = null, $extraField3 = null) {
+		function publishInPersonalFeed($forceNotifyAllMembers = "false", $delayNotification = "false", $votable = "false", $comment = null, $htmlComment = null, $indexableContent = null, $attributes = null, $idevent = null, $usersToNotify = null, $extraField1 = null, $extraField2 = null, $extraField3 = null) {
 
 			$method = WALL . "/personalfeed";
 
 			$verbmethod = "POST";
 
-			$params = array("comment" => $comment,
+			$params = array("forceNotifyAllMembers" => $forceNotifyAllMembers,
+							 "delayNotification" => $delayNotification,
+							 "votable" => $votable,
+							 "comment" => $comment,
 							 "htmlComment" => $htmlComment,
 							 "indexableContent" => $indexableContent,
 							 "attributes" => $attributes,
 							 "idevent" => $idevent,
 							 "usersToNotify" => $usersToNotify,
-							 "forceNotifyAllMembers" => $forceNotifyAllMembers,
-							 "delayNotification" => $delayNotification,
-							 "votable" => $votable,
 							 "extraField1" => $extraField1,
 							 "extraField2" => $extraField2,
 							 "extraField3" => $extraField3);
@@ -278,17 +278,17 @@
 	 *            parameter {@since 4.0}
 	 * @return A list of events {@link EventApi}
 	 */
-		function getPrivateComments($date = null, $itemsCount = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $users = null, $pageNumber = null) {
+		function getPrivateComments($includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $date = null, $itemsCount = null, $users = null, $pageNumber = null) {
 
 			$method = WALL . "/privatecomments";
 
 			$verbmethod = "GET";
 
-			$params = array("date" => $date,
-							 "itemsCount" => $itemsCount,
-							 "includeHtml" => $includeHtml,
+			$params = array("includeHtml" => $includeHtml,
 							 "includePropertiesPreview" => $includePropertiesPreview,
 							 "viewType" => $viewType,
+							 "date" => $date,
+							 "itemsCount" => $itemsCount,
 							 "users" => $users,
 							 "pageNumber" => $pageNumber);
 
@@ -372,18 +372,18 @@
 	 *            parameter {@since 4.0}
 	 * @return A list of events {@link EventApi}
 	 */
-		function getGroupEvents($idgroup, $date = null, $itemsCount = null, $eventTypes = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $users = null, $pageNumber = null) {
+		function getGroupEvents($idgroup, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $date = null, $itemsCount = null, $eventTypes = null, $users = null, $pageNumber = null) {
 
 			$method = WALL . "/$idgroup";
 
 			$verbmethod = "GET";
 
-			$params = array("date" => $date,
-							 "itemsCount" => $itemsCount,
-							 "eventTypes" => $eventTypes,
-							 "includeHtml" => $includeHtml,
+			$params = array("includeHtml" => $includeHtml,
 							 "includePropertiesPreview" => $includePropertiesPreview,
 							 "viewType" => $viewType,
+							 "date" => $date,
+							 "itemsCount" => $itemsCount,
+							 "eventTypes" => $eventTypes,
 							 "users" => $users,
 							 "pageNumber" => $pageNumber);
 
@@ -411,18 +411,18 @@
 	 *            parameter {@since 4.0}
 	 * @return A list of events {@link EventApi}
 	 */
-		function getDocumentEvents($idgroup, $iddocument, $date = null, $itemsCount = null, $eventTypes = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $pageNumber = null) {
+		function getDocumentEvents($idgroup, $iddocument, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $date = null, $itemsCount = null, $eventTypes = null, $pageNumber = null) {
 
 			$method = WALL . "/$idgroup/documents/$iddocument";
 
 			$verbmethod = "GET";
 
-			$params = array("date" => $date,
-							 "itemsCount" => $itemsCount,
-							 "eventTypes" => $eventTypes,
-							 "includeHtml" => $includeHtml,
+			$params = array("includeHtml" => $includeHtml,
 							 "includePropertiesPreview" => $includePropertiesPreview,
 							 "viewType" => $viewType,
+							 "date" => $date,
+							 "itemsCount" => $itemsCount,
+							 "eventTypes" => $eventTypes,
 							 "pageNumber" => $pageNumber);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -448,17 +448,17 @@
 	 * @return A list of events {@link EventApi}
 	 * @since 3.5
 	 */
-		function getActivityEvents($date = null, $itemsCount = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $pageNumber = null) {
+		function getActivityEvents($includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $date = null, $itemsCount = null, $pageNumber = null) {
 
 			$method = WALL . "/activity";
 
 			$verbmethod = "GET";
 
-			$params = array("date" => $date,
-							 "itemsCount" => $itemsCount,
-							 "includeHtml" => $includeHtml,
+			$params = array("includeHtml" => $includeHtml,
 							 "includePropertiesPreview" => $includePropertiesPreview,
 							 "viewType" => $viewType,
+							 "date" => $date,
+							 "itemsCount" => $itemsCount,
 							 "pageNumber" => $pageNumber);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -484,17 +484,17 @@
 	 * @return A list of events {@link EventApi}
 	 * @since 3.5
 	 */
-		function getProfileEvents($iduser, $date = null, $itemsCount = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $pageNumber = null) {
+		function getProfileEvents($iduser, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $date = null, $itemsCount = null, $pageNumber = null) {
 
 			$method = WALL . "/profile/$iduser";
 
 			$verbmethod = "GET";
 
-			$params = array("date" => $date,
-							 "itemsCount" => $itemsCount,
-							 "includeHtml" => $includeHtml,
+			$params = array("includeHtml" => $includeHtml,
 							 "includePropertiesPreview" => $includePropertiesPreview,
 							 "viewType" => $viewType,
+							 "date" => $date,
+							 "itemsCount" => $itemsCount,
 							 "pageNumber" => $pageNumber);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -517,17 +517,17 @@
 	 * @return A list of events {@link EventApi}
 	 * @since 3.5
 	 */
-		function getLikeEvents($date = null, $itemsCount = null, $includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0") {
+		function getLikeEvents($includeHtml = "false", $includePropertiesPreview = "false", $viewType = "0", $date = null, $itemsCount = null) {
 
 			$method = WALL . "/likes";
 
 			$verbmethod = "GET";
 
-			$params = array("date" => $date,
-							 "itemsCount" => $itemsCount,
-							 "includeHtml" => $includeHtml,
+			$params = array("includeHtml" => $includeHtml,
 							 "includePropertiesPreview" => $includePropertiesPreview,
-							 "viewType" => $viewType);
+							 "viewType" => $viewType,
+							 "date" => $date,
+							 "itemsCount" => $itemsCount);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -557,22 +557,22 @@
 	 * @param extraField3 Third extra sort field for Event view type to return the events {@since 4.0.1}
 	 * @return ID of the newly published message.
 	 */
-		function publishInGroup($idgroup, $comment = null, $htmlComment = null, $indexableContent = null, $attributes = null, $idevent = null, $iddocument = null, $usersToNotify = null, $forceNotifyAllMembers = "false", $delayNotification = "false", $votable = "false", $extraField1 = null, $extraField2 = null, $extraField3 = null) {
+		function publishInGroup($idgroup, $forceNotifyAllMembers = "false", $delayNotification = "false", $votable = "false", $comment = null, $htmlComment = null, $indexableContent = null, $attributes = null, $idevent = null, $iddocument = null, $usersToNotify = null, $extraField1 = null, $extraField2 = null, $extraField3 = null) {
 
 			$method = WALL . "/$idgroup";
 
 			$verbmethod = "POST";
 
-			$params = array("comment" => $comment,
+			$params = array("forceNotifyAllMembers" => $forceNotifyAllMembers,
+							 "delayNotification" => $delayNotification,
+							 "votable" => $votable,
+							 "comment" => $comment,
 							 "htmlComment" => $htmlComment,
 							 "indexableContent" => $indexableContent,
 							 "attributes" => $attributes,
 							 "idevent" => $idevent,
 							 "iddocument" => $iddocument,
 							 "usersToNotify" => $usersToNotify,
-							 "forceNotifyAllMembers" => $forceNotifyAllMembers,
-							 "delayNotification" => $delayNotification,
-							 "votable" => $votable,
 							 "extraField1" => $extraField1,
 							 "extraField2" => $extraField2,
 							 "extraField3" => $extraField3);
@@ -612,16 +612,16 @@
 	 *            uploaded to the root of the group.
 	 * @since 3.5
 	 */
-		function attachInEvent($idevent, $parentDocumentUrn = null, $fileName = null, $length = null, $file = null) {
+		function attachInEvent($idevent, $fileName, $length, $file, $parentDocumentUrn = null) {
 
 			$method = WALL . "/feeds/$idevent/attach/@oauthtoken";
 
 			$verbmethod = "POST";
 
-			$params = array("parentDocumentUrn" => $parentDocumentUrn,
-							 "fileName" => $fileName,
+			$params = array("fileName" => $fileName,
 							 "length" => $length,
-							 "file" => $file);
+							 "file" => $file,
+							 "parentDocumentUrn" => $parentDocumentUrn);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -642,16 +642,16 @@
 	 * @param users Comma-separated list of users IDs to filter the events returned by the authors included in this list. {@since 3.5}
 	 * @return A list of events {@link EventApi}
 	 */
-		function getChildEvents($idevent, $idlastevent = null, $itemsCount = null, $includeHtml = "false", $includePropertiesPreview = "false", $users = null) {
+		function getChildEvents($idevent, $includeHtml = "false", $includePropertiesPreview = "false", $idlastevent = null, $itemsCount = null, $users = null) {
 
 			$method = WALL . "/feeds/$idevent";
 
 			$verbmethod = "GET";
 
-			$params = array("idlastevent" => $idlastevent,
-							 "itemsCount" => $itemsCount,
-							 "includeHtml" => $includeHtml,
+			$params = array("includeHtml" => $includeHtml,
 							 "includePropertiesPreview" => $includePropertiesPreview,
+							 "idlastevent" => $idlastevent,
+							 "itemsCount" => $itemsCount,
 							 "users" => $users);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -670,15 +670,15 @@
 	 *            false. {@since 3.5}
 	 * @return A list of events {@link EventApi}
 	 */
-		function getEventsById($events = null, $includeHtml = "false", $includePropertiesPreview = "false") {
+		function getEventsById($includeHtml = "false", $includePropertiesPreview = "false", $events = null) {
 
 			$method = WALL . "/feeds";
 
 			$verbmethod = "GET";
 
-			$params = array("events" => $events,
-							 "includeHtml" => $includeHtml,
-							 "includePropertiesPreview" => $includePropertiesPreview);
+			$params = array("includeHtml" => $includeHtml,
+							 "includePropertiesPreview" => $includePropertiesPreview,
+							 "events" => $events);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -729,19 +729,19 @@
 	 * @param extraField3 Third extra sort field for Event view type to return the events {@since 4.0.1}
 	 * @return ID of the newly published event.
 	 */
-		function commentInEvent($idevent, $comment = null, $htmlComment = null, $indexableContent = null, $attributes = null, $usersToNotify = null, $forceNotifyAllMembers = "false", $delayNotification = "false", $extraField1 = null, $extraField2 = null, $extraField3 = null) {
+		function commentInEvent($idevent, $forceNotifyAllMembers = "false", $delayNotification = "false", $comment = null, $htmlComment = null, $indexableContent = null, $attributes = null, $usersToNotify = null, $extraField1 = null, $extraField2 = null, $extraField3 = null) {
 
 			$method = WALL . "/feeds/$idevent";
 
 			$verbmethod = "POST";
 
-			$params = array("comment" => $comment,
+			$params = array("forceNotifyAllMembers" => $forceNotifyAllMembers,
+							 "delayNotification" => $delayNotification,
+							 "comment" => $comment,
 							 "htmlComment" => $htmlComment,
 							 "indexableContent" => $indexableContent,
 							 "attributes" => $attributes,
 							 "usersToNotify" => $usersToNotify,
-							 "forceNotifyAllMembers" => $forceNotifyAllMembers,
-							 "delayNotification" => $delayNotification,
 							 "extraField1" => $extraField1,
 							 "extraField2" => $extraField2,
 							 "extraField3" => $extraField3);
@@ -898,16 +898,16 @@
 	 *            {@link InboxEventApiType}
 	 * @return A list of inbox events {@link InboxEventApi}
 	 */
-		function getInbox($date = null, $itemsCount = null, $onlyUnread = "false", $inboxTypes = "0") {
+		function getInbox($onlyUnread = "false", $inboxTypes = "0", $date = null, $itemsCount = null) {
 
 			$method = WALL . "/inbox";
 
 			$verbmethod = "GET";
 
-			$params = array("date" => $date,
-							 "itemsCount" => $itemsCount,
-							 "onlyUnread" => $onlyUnread,
-							 "inboxTypes" => $inboxTypes);
+			$params = array("onlyUnread" => $onlyUnread,
+							 "inboxTypes" => $inboxTypes,
+							 "date" => $date,
+							 "itemsCount" => $itemsCount);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -978,7 +978,7 @@
 	 * @param enabled Determines whether subscription to the notification of this event type is enabled or disabled.
 	 * @since 3.5
 	 */
-		function editNotification($notificationType = null, $enabled = null) {
+		function editNotification($notificationType, $enabled) {
 
 			$method = WALL . "/notifications";
 
@@ -1011,23 +1011,23 @@
 	 *            false. {@since 3.5}
 	 * @return A list of events {@link EventApi} matching the search.
 	 */
-		function searchEvents($pageNumber = null, $itemsPerPage = null, $text = null, $searchType = "0", $groups = null, $users = null, $fromDate = null, $toDate = null, $onlyResultSize = "false", $includeHtml = "false", $includePropertiesPreview = "false") {
+		function searchEvents($searchType = "0", $onlyResultSize = "false", $includeHtml = "false", $includePropertiesPreview = "false", $pageNumber = null, $itemsPerPage = null, $text = null, $groups = null, $users = null, $fromDate = null, $toDate = null) {
 
 			$method = WALL . "/search";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
+			$params = array("searchType" => $searchType,
+							 "onlyResultSize" => $onlyResultSize,
+							 "includeHtml" => $includeHtml,
+							 "includePropertiesPreview" => $includePropertiesPreview,
+							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
 							 "text" => $text,
-							 "searchType" => $searchType,
 							 "groups" => $groups,
 							 "users" => $users,
 							 "fromDate" => $fromDate,
-							 "toDate" => $toDate,
-							 "onlyResultSize" => $onlyResultSize,
-							 "includeHtml" => $includeHtml,
-							 "includePropertiesPreview" => $includePropertiesPreview);
+							 "toDate" => $toDate);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -1042,7 +1042,7 @@
 	 * @param voteType Determines if vote is positive, negative or deleted. {@link VoteTypeApi}
 	 * @since 4.0
 	 */
-		function vote($idevent, $voteType = null) {
+		function vote($idevent, $voteType) {
 
 			$method = WALL . "/feeds/$idevent/vote";
 

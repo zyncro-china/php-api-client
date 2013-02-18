@@ -21,16 +21,16 @@
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of groups. {@link GroupApi}
 	 */
-		function getGroups($pageNumber = null, $itemsPerPage = null, $groupTypes = null, $groupFilter = "1", $startsWith = null, $orderField = null, $orderType = null) {
+		function getGroups($groupFilter = "1", $pageNumber = null, $itemsPerPage = null, $groupTypes = null, $startsWith = null, $orderField = null, $orderType = null) {
 
 			$method = GROUPS . "/";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
+			$params = array("groupFilter" => $groupFilter,
+							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
 							 "groupTypes" => $groupTypes,
-							 "groupFilter" => $groupFilter,
 							 "startsWith" => $startsWith,
 							 "orderField" => $orderField,
 							 "orderType" => $orderType);
@@ -313,21 +313,21 @@
 	 * @param attributes Additional attributes to store in the group. They must be in JSON format.
 	 * @return ID of the newly created group.
 	 */
-		function createGroup($name = null, $description = null, $isOpen = "false", $isNewMemberEditor = "false", $isNewMemberTaskManager = "false", $isNewMemberInviter = "false", $isNewMemberOwner = "false", $isNewMemberCommenter = "false", $showMembers = "true", $attributes = null) {
+		function createGroup($isOpen = "false", $isNewMemberEditor = "false", $isNewMemberTaskManager = "false", $isNewMemberInviter = "false", $isNewMemberOwner = "false", $isNewMemberCommenter = "false", $showMembers = "true", $name = null, $description = null, $attributes = null) {
 
 			$method = GROUPS . "/";
 
 			$verbmethod = "POST";
 
-			$params = array("name" => $name,
-							 "description" => $description,
-							 "isOpen" => $isOpen,
+			$params = array("isOpen" => $isOpen,
 							 "isNewMemberEditor" => $isNewMemberEditor,
 							 "isNewMemberTaskManager" => $isNewMemberTaskManager,
 							 "isNewMemberInviter" => $isNewMemberInviter,
 							 "isNewMemberOwner" => $isNewMemberOwner,
 							 "isNewMemberCommenter" => $isNewMemberCommenter,
 							 "showMembers" => $showMembers,
+							 "name" => $name,
+							 "description" => $description,
 							 "attributes" => $attributes);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -344,7 +344,7 @@
 	 * @param description Description of the folder to create.
 	 * @return ID of the newly created folder.
 	 */
-		function createFolder($idgroup, $name = null, $description = null) {
+		function createFolder($idgroup, $name, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/folder";
 
@@ -368,7 +368,7 @@
 	 * @return A folder {@link DocumentApi}
 	 * @since 3.5
 	 */
-		function createFolderAndGetInfo($idgroup, $name = null, $description = null) {
+		function createFolderAndGetInfo($idgroup, $name, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/createfolder";
 
@@ -390,7 +390,7 @@
 	 * @param name Name of the folder to create.
 	 * @param description Description of the folder to create.
 	 */
-		function createFolderInDocument($idgroup, $iddocument, $name = null, $description = null) {
+		function createFolderInDocument($idgroup, $iddocument, $name, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/folder";
 
@@ -414,7 +414,7 @@
 	 * @return A folder {@link DocumentApi}
 	 * @since 3.5
 	 */
-		function createFolderInDocumentAndGetInfo($idgroup, $iddocument, $name = null, $description = null) {
+		function createFolderInDocumentAndGetInfo($idgroup, $iddocument, $name, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/createfolder";
 
@@ -522,7 +522,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternalLink($idgroup, $name = null, $url = null, $description = null) {
+		function createExternalLink($idgroup, $name, $url, $description = null) {
 
 			$method = GROUPS . "/$idgroup/externallink";
 
@@ -547,7 +547,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternalLinkByDocumentId($idgroup, $iddocument, $name = null, $url = null, $description = null) {
+		function createExternalLinkByDocumentId($idgroup, $iddocument, $name, $url, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/externallink";
 
@@ -570,7 +570,7 @@
 	 * @param idLink Target document ID, i.e. the document to which it will be linked.
 	 * @return ID of the newly created link.
 	 */
-		function createInternaLink($idgroup, $idLink = null) {
+		function createInternaLink($idgroup, $idLink) {
 
 			$method = GROUPS . "/$idgroup/internallink";
 
@@ -591,7 +591,7 @@
 	 * @param idLink Target document ID, i.e. the document to which it will be linked.
 	 * @return ID of the newly created link.
 	 */
-		function createInternaLinkByDocumentId($idgroup, $iddocument, $idLink = null) {
+		function createInternaLinkByDocumentId($idgroup, $iddocument, $idLink) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/internallink";
 
@@ -706,7 +706,7 @@
 	 * @param isCommenter Parameter to set the new member as inviter. Default is true. {@since 3.4}
 	 * @param isOwner Parameter to set the new member as owner. Default is false.
 	 */
-		function addMember($idgroup, $idUser = null, $isEditor = "false", $isTaskManager = "false", $isInviter = "false", $isCommenter = "true", $isOwner = "false") {
+		function addMember($idgroup, $idUser, $isEditor = "false", $isTaskManager = "false", $isInviter = "false", $isCommenter = "true", $isOwner = "false") {
 
 			$method = GROUPS . "/$idgroup/members";
 
@@ -734,7 +734,7 @@
 	 * @param enabled Determines whether subscription to the notification of this event type is enabled or disabled.
 	 * @since 3.4
 	 */
-		function editNotification($idgroup, $notificationType = null, $subscriptionType = null, $enabled = null) {
+		function editNotification($idgroup, $notificationType, $subscriptionType, $enabled) {
 
 			$method = GROUPS . "/$idgroup/notifications";
 
@@ -765,19 +765,19 @@
 	 * @param onlyResultSize Set as true if you only want to know the number of results that are in this search. Default is false.
 	 * @return A list of groups {@link GroupApi} matching the search.
 	 */
-		function searchGroups($pageNumber = null, $itemsPerPage = null, $text = null, $users = null, $fromDate = null, $toDate = null, $onlyResultSize = "false") {
+		function searchGroups($onlyResultSize = "false", $pageNumber = null, $itemsPerPage = null, $text = null, $users = null, $fromDate = null, $toDate = null) {
 
 			$method = GROUPS . "/search";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
+			$params = array("onlyResultSize" => $onlyResultSize,
+							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
 							 "text" => $text,
 							 "users" => $users,
 							 "fromDate" => $fromDate,
-							 "toDate" => $toDate,
-							 "onlyResultSize" => $onlyResultSize);
+							 "toDate" => $toDate);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -802,20 +802,20 @@
 	 * @param onlyResultSize Set as true if you only want to know the number of results that are in this search. Default is false.
 	 * @return A list of documents {@link DocumentApi} matching the search.
 	 */
-		function searchDocuments($pageNumber = null, $itemsPerPage = null, $text = null, $groups = null, $users = null, $fromDate = null, $toDate = null, $onlyResultSize = "false") {
+		function searchDocuments($onlyResultSize = "false", $pageNumber = null, $itemsPerPage = null, $text = null, $groups = null, $users = null, $fromDate = null, $toDate = null) {
 
 			$method = GROUPS . "/documents/search";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
+			$params = array("onlyResultSize" => $onlyResultSize,
+							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
 							 "text" => $text,
 							 "groups" => $groups,
 							 "users" => $users,
 							 "fromDate" => $fromDate,
-							 "toDate" => $toDate,
-							 "onlyResultSize" => $onlyResultSize);
+							 "toDate" => $toDate);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -880,18 +880,18 @@
 	 * @return Response of the upload {@link UploadDocumentResultApi}
 	 * @since 3.5
 	 */
-		function upload($idgroup, $parentDocumentUrn = null, $iddocument = null, $description = null, $fileName = null, $length = null, $file = null) {
+		function upload($idgroup, $fileName, $length, $file, $parentDocumentUrn = null, $iddocument = null, $description = null) {
 
 			$method = GROUPS . "/$idgroup/documents/upload/@oauthtoken";
 
 			$verbmethod = "POST";
 
-			$params = array("parentDocumentUrn" => $parentDocumentUrn,
-							 "iddocument" => $iddocument,
-							 "description" => $description,
-							 "fileName" => $fileName,
+			$params = array("fileName" => $fileName,
 							 "length" => $length,
-							 "file" => $file);
+							 "file" => $file,
+							 "parentDocumentUrn" => $parentDocumentUrn,
+							 "iddocument" => $iddocument,
+							 "description" => $description);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -908,15 +908,15 @@
 	 * @param mode The modes available to generate the preview are 0: Keeps proportions, 1: Stretch and 2: Crop. Defaults set to 0.
 	 * @since 3.4
 	 */
-		function preview($idgroup, $iddocument, $width = null, $height = null, $mode = "0") {
+		function preview($idgroup, $iddocument, $mode = "0", $width = null, $height = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/preview/@oauthtoken";
 
 			$verbmethod = "GET";
 
-			$params = array("width" => $width,
-							 "height" => $height,
-							 "mode" => $mode);
+			$params = array("mode" => $mode,
+							 "width" => $width,
+							 "height" => $height);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -932,7 +932,7 @@
 	 * @param length The size of the file to upload in bytes.
 	 * @since 3.5
 	 */
-		function uploadGroupIcon($idgroup, $length = null, $file = null) {
+		function uploadGroupIcon($idgroup, $length, $file) {
 
 			$method = GROUPS . "/$idgroup/uploadicon/@oauthtoken";
 
@@ -951,20 +951,20 @@
 	/**
 	 * @deprecated Use {@link IGroupApiService#upload(String, String, String, String, String, String, Long, InputStream)}
 	 */
-		function uploadNewDocument($idgroup, $description = null, $comment = null, $parentDocumentUrn = null, $description = null, $comment = null, $fileName = null, $length = null, $file = null) {
+		function uploadNewDocument($idgroup, $fileName, $length, $file, $description = null, $comment = null, $parentDocumentUrn = null, $description = null, $comment = null) {
 
 			$method = GROUPS . "/$idgroup/upload/@oauthtoken";
 
 			$verbmethod = "POST";
 
-			$params = array("description" => $description,
+			$params = array("fileName" => $fileName,
+							 "length" => $length,
+							 "file" => $file,
+							 "description" => $description,
 							 "comment" => $comment,
 							 "parentDocumentUrn" => $parentDocumentUrn,
 							 "description" => $description,
-							 "comment" => $comment,
-							 "fileName" => $fileName,
-							 "length" => $length,
-							 "file" => $file);
+							 "comment" => $comment);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -976,18 +976,18 @@
 	/**
 	 * @deprecated Use {@link IGroupApiService#upload(String, String, String, String, String, String, Long, InputStream)}
 	 */
-		function uploadDocumentNewVersion($idgroup, $iddocument, $idversion = null, $description = null, $comment = null, $fileName = null, $length = null, $file = null) {
+		function uploadDocumentNewVersion($idgroup, $iddocument, $length, $file, $idversion = null, $description = null, $comment = null, $fileName = null) {
 
 			$method = GROUPS . "/$idgroup/documents/$iddocument/upload/@oauthtoken";
 
 			$verbmethod = "POST";
 
-			$params = array("idversion" => $idversion,
+			$params = array("length" => $length,
+							 "file" => $file,
+							 "idversion" => $idversion,
 							 "description" => $description,
 							 "comment" => $comment,
-							 "fileName" => $fileName,
-							 "length" => $length,
-							 "file" => $file);
+							 "fileName" => $fileName);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -999,18 +999,18 @@
 	/**
 	 * @deprecated Use {@link IWallApiService#attachInEvent(String, String, String, String, Long, InputStream)}
 	 */
-		function uploadNewDocumentAttached($idgroup, $parentDocumentUrn = null, $eventUrn = null, $description = null, $fileName = null, $length = null, $file = null) {
+		function uploadNewDocumentAttached($idgroup, $eventUrn, $fileName, $length, $file, $parentDocumentUrn = null, $description = null) {
 
 			$method = GROUPS . "/$idgroup/uploadattach/@oauthtoken";
 
 			$verbmethod = "POST";
 
-			$params = array("parentDocumentUrn" => $parentDocumentUrn,
-							 "eventUrn" => $eventUrn,
-							 "description" => $description,
+			$params = array("eventUrn" => $eventUrn,
 							 "fileName" => $fileName,
 							 "length" => $length,
-							 "file" => $file);
+							 "file" => $file,
+							 "parentDocumentUrn" => $parentDocumentUrn,
+							 "description" => $description);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 

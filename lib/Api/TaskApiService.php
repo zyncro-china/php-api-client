@@ -75,21 +75,21 @@
 	 * @param eventUrn The event associated of the task to create
 	 * @since 3.4
 	 */
-		function createTask($title = null, $description = null, $responsible = null, $responsibleText = null, $dueDate = null, $type = null, $status = "0", $following = null, $urnGroup = null, $eventUrn = null) {
+		function createTask($title, $type, $urnGroup, $status = "0", $description = null, $responsible = null, $responsibleText = null, $dueDate = null, $following = null, $eventUrn = null) {
 
 			$method = TASKS . "/";
 
 			$verbmethod = "POST";
 
 			$params = array("title" => $title,
+							 "type" => $type,
+							 "urnGroup" => $urnGroup,
+							 "status" => $status,
 							 "description" => $description,
 							 "responsible" => $responsible,
 							 "responsibleText" => $responsibleText,
 							 "dueDate" => $dueDate,
-							 "type" => $type,
-							 "status" => $status,
 							 "following" => $following,
-							 "urnGroup" => $urnGroup,
 							 "eventUrn" => $eventUrn);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
@@ -112,18 +112,18 @@
 	 * @param following Whether or not follow this task in meetings
 	 * @since 3.4
 	 */
-		function editTask($idtask, $title = null, $description = null, $responsible = null, $responsibleText = null, $dueDate = null, $type = null, $status = null, $following = null) {
+		function editTask($idtask, $title, $type, $description = null, $responsible = null, $responsibleText = null, $dueDate = null, $status = null, $following = null) {
 
 			$method = TASKS . "/$idtask";
 
 			$verbmethod = "POST";
 
 			$params = array("title" => $title,
+							 "type" => $type,
 							 "description" => $description,
 							 "responsible" => $responsible,
 							 "responsibleText" => $responsibleText,
 							 "dueDate" => $dueDate,
-							 "type" => $type,
 							 "status" => $status,
 							 "following" => $following);
 
@@ -169,21 +169,21 @@
 	 * @return A list of events {@link EventApi} matching the search.
 	 * @since 4.0
 	 */
-		function searchTasks($pageNumber = null, $itemsPerPage = null, $text = null, $searchType = null, $groups = null, $users = null, $fromDate = null, $toDate = null, $onlyResultSize = "false") {
+		function searchTasks($onlyResultSize = "false", $pageNumber = null, $itemsPerPage = null, $text = null, $searchType = null, $groups = null, $users = null, $fromDate = null, $toDate = null) {
 
 			$method = TASKS . "/search";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
+			$params = array("onlyResultSize" => $onlyResultSize,
+							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
 							 "text" => $text,
 							 "searchType" => $searchType,
 							 "groups" => $groups,
 							 "users" => $users,
 							 "fromDate" => $fromDate,
-							 "toDate" => $toDate,
-							 "onlyResultSize" => $onlyResultSize);
+							 "toDate" => $toDate);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 

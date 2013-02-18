@@ -18,15 +18,15 @@
 	 * @return A list of invitations {@link InvitationApi}.
 	 * @since 3.5
 	 */
-		function getInvitationsCount($invitationStates = null, $invitationTypes = null, $invitationRole = "2") {
+		function getInvitationsCount($invitationRole = "2", $invitationStates = null, $invitationTypes = null) {
 
 			$method = INVITATIONS . "/invitationscount";
 
 			$verbmethod = "GET";
 
-			$params = array("invitationStates" => $invitationStates,
-							 "invitationTypes" => $invitationTypes,
-							 "invitationRole" => $invitationRole);
+			$params = array("invitationRole" => $invitationRole,
+							 "invitationStates" => $invitationStates,
+							 "invitationTypes" => $invitationTypes);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -46,17 +46,17 @@
 	 * @param invitationRole Invitation role of the invitations to return. Default value returns all roles. {@link InvitationRoleApiType}
 	 * @return A list of invitations {@link InvitationApi}.
 	 */
-		function getInvitations($pageNumber = null, $itemsPerPage = null, $invitationStates = null, $invitationTypes = null, $invitationRole = "2") {
+		function getInvitations($invitationRole = "2", $pageNumber = null, $itemsPerPage = null, $invitationStates = null, $invitationTypes = null) {
 
 			$method = INVITATIONS . "/";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
+			$params = array("invitationRole" => $invitationRole,
+							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
 							 "invitationStates" => $invitationStates,
-							 "invitationTypes" => $invitationTypes,
-							 "invitationRole" => $invitationRole);
+							 "invitationTypes" => $invitationTypes);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -88,7 +88,7 @@
 	 * 
 	 * @param state The new invitation state for the invitation. {@link InvitationStateApiType}
 	 */
-		function editInvitation($idinvitation, $state = null) {
+		function editInvitation($idinvitation, $state) {
 
 			$method = INVITATIONS . "/$idinvitation";
 
@@ -116,7 +116,7 @@
 	 * @param comment Optional comment to add to the invitation
 	 * @since 3.4
 	 */
-		function sendGroupInvitation($idUser = null, $idGroup = null, $isEditor = "false", $isInviter = "false", $isTaskManager = "false", $isOwner = "false", $isCommenter = "false", $comment = null) {
+		function sendGroupInvitation($idUser, $idGroup, $isEditor = "false", $isInviter = "false", $isTaskManager = "false", $isOwner = "false", $isCommenter = "false", $comment = null) {
 
 			$method = INVITATIONS . "/groupinvitation";
 
@@ -151,7 +151,7 @@
 	 * @param comment Optional comment to add to the invitation
 	 * @since 4.0
 	 */
-		function sendGroupInvitations($users = null, $idGroup = null, $isEditor = "false", $isInviter = "false", $isTaskManager = "false", $isOwner = "false", $isCommenter = "false", $comment = null) {
+		function sendGroupInvitations($users, $idGroup, $isEditor = "false", $isInviter = "false", $isTaskManager = "false", $isOwner = "false", $isCommenter = "false", $comment = null) {
 
 			$method = INVITATIONS . "/groupinvitations";
 
@@ -180,7 +180,7 @@
 	 * @param comment Optional comment to add to the invitation
 	 * @since 3.4
 	 */
-		function sendExternalContactInvitation($idUser = null, $comment = null) {
+		function sendExternalContactInvitation($idUser, $comment = null) {
 
 			$method = INVITATIONS . "/externalcontactinvitation";
 
@@ -203,7 +203,7 @@
 	 * @param comment Optional comment to add to the invitation
 	 * @since 4.0
 	 */
-		function sendExternalContactInvitations($users = null, $comment = null) {
+		function sendExternalContactInvitations($users, $comment = null) {
 
 			$method = INVITATIONS . "/externalcontactinvitations";
 

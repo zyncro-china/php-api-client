@@ -16,15 +16,15 @@
 	 * @param type Type of contact users to return. Default returns all contacts. {@link UserFilterApiType}
 	 * @return A list of contact users {@link UserApi}
 	 */
-		function getContacts($pageNumber = null, $itemsPerPage = null, $type = "0") {
+		function getContacts($type = "0", $pageNumber = null, $itemsPerPage = null) {
 
 			$method = USERS . "/";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
-							 "itemsPerPage" => $itemsPerPage,
-							 "type" => $type);
+			$params = array("type" => $type,
+							 "pageNumber" => $pageNumber,
+							 "itemsPerPage" => $itemsPerPage);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -108,15 +108,15 @@
 	 * @param followType The follow type of users to return. Default returns all types. {@link UserFollowApiType}
 	 * @return A list of contact users {@link UserApi}
 	 */
-		function getFollowing($iduser, $pageNumber = null, $itemsPerPage = null, $followType = "2") {
+		function getFollowing($iduser, $followType = "2", $pageNumber = null, $itemsPerPage = null) {
 
 			$method = USERS . "/$iduser/following";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
-							 "itemsPerPage" => $itemsPerPage,
-							 "followType" => $followType);
+			$params = array("followType" => $followType,
+							 "pageNumber" => $pageNumber,
+							 "itemsPerPage" => $itemsPerPage);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -133,15 +133,15 @@
 	 * @param followType The follow type of users to return. Default returns all types. {@link UserFollowApiType}
 	 * @return A list of contact users {@link UserApi}
 	 */
-		function getFollowedBy($iduser, $pageNumber = null, $itemsPerPage = null, $followType = "2") {
+		function getFollowedBy($iduser, $followType = "2", $pageNumber = null, $itemsPerPage = null) {
 
 			$method = USERS . "/$iduser/followedby";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
-							 "itemsPerPage" => $itemsPerPage,
-							 "followType" => $followType);
+			$params = array("followType" => $followType,
+							 "pageNumber" => $pageNumber,
+							 "itemsPerPage" => $itemsPerPage);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -199,14 +199,14 @@
 	 * @param onlyShort Determines whether short or complete profile information is returned. Default is false and returns complete profile.
 	 * @return User profile information {@link UserApi}
 	 */
-		function getUsersById($users = null, $onlyShort = "false") {
+		function getUsersById($onlyShort = "false", $users = null) {
 
 			$method = USERS . "/profiles";
 
 			$verbmethod = "GET";
 
-			$params = array("users" => $users,
-							 "onlyShort" => $onlyShort);
+			$params = array("onlyShort" => $onlyShort,
+							 "users" => $users);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -225,17 +225,17 @@
 	 * @param onlyShort Determines whether short or complete profile information is returned. Default is true and returns small profile info. {@since 4.0}
 	 * @return A list of users {@link UserApi} matching the search.
 	 */
-		function searchContacts($text = null, $pageNumber = null, $itemsPerPage = null, $type = null, $onlyShort = "true") {
+		function searchContacts($onlyShort = "true", $text = null, $pageNumber = null, $itemsPerPage = null, $type = null) {
 
 			$method = USERS . "/searchcontacts";
 
 			$verbmethod = "GET";
 
-			$params = array("text" => $text,
+			$params = array("onlyShort" => $onlyShort,
+							 "text" => $text,
 							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
-							 "type" => $type,
-							 "onlyShort" => $onlyShort);
+							 "type" => $type);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -251,7 +251,7 @@
 	 * @return The followState in the response, may be "1" meaning the process was successful, or "2" that means a following invitation has
 	 *         been sent to the user (depends on the target user configuration).
 	 */
-		function followUser($iduser, $followType = null) {
+		function followUser($iduser, $followType) {
 
 			$method = USERS . "/$iduser/follow";
 
@@ -293,7 +293,7 @@
 	 * @param length The size of the file to upload in bytes.
 	 * @since 3.5
 	 */
-		function uploadProfileImage($length = null, $file = null) {
+		function uploadProfileImage($length, $file) {
 
 			$method = USERS . "/uploadimage/@oauthtoken";
 
@@ -312,15 +312,15 @@
 	/**
 	 *
 	 */
-		function getShortContacts($pageNumber = null, $itemsPerPage = null, $type = "0") {
+		function getShortContacts($type = "0", $pageNumber = null, $itemsPerPage = null) {
 
 			$method = USERS . "/small";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
-							 "itemsPerPage" => $itemsPerPage,
-							 "type" => $type);
+			$params = array("type" => $type,
+							 "pageNumber" => $pageNumber,
+							 "itemsPerPage" => $itemsPerPage);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -355,7 +355,7 @@
 	 * @param password password of the new associated user.
 	 * @since 4.0
 	 */
-		function associateUser($email = null, $password = null) {
+		function associateUser($email, $password) {
 
 			$method = USERS . "/associate";
 
@@ -380,15 +380,15 @@
 	 * @return A list of apps {@link AppApi}
 	 * @since 4.0
 	 */
-		function getApps($pageNumber = null, $itemsPerPage = null, $availabilityType = "0") {
+		function getApps($availabilityType = "0", $pageNumber = null, $itemsPerPage = null) {
 
 			$method = USERS . "/apps";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
-							 "itemsPerPage" => $itemsPerPage,
-							 "availabilityType" => $availabilityType);
+			$params = array("availabilityType" => $availabilityType,
+							 "pageNumber" => $pageNumber,
+							 "itemsPerPage" => $itemsPerPage);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 

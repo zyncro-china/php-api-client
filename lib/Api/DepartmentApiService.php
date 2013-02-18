@@ -19,15 +19,15 @@
 	 * @param orderType Order type. Default set to ASC. {@link OrderFilterApiType} {@since 4.0}
 	 * @return A list of departments {@link DepartmentApi}.
 	 */
-		function getDepartments($pageNumber = null, $itemsPerPage = null, $departmentFilter = "0", $startsWith = null, $orderField = null, $orderType = null) {
+		function getDepartments($departmentFilter = "0", $pageNumber = null, $itemsPerPage = null, $startsWith = null, $orderField = null, $orderType = null) {
 
 			$method = DEPARTMENTS . "/";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
+			$params = array("departmentFilter" => $departmentFilter,
+							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
-							 "departmentFilter" => $departmentFilter,
 							 "startsWith" => $startsWith,
 							 "orderField" => $orderField,
 							 "orderType" => $orderType);
@@ -56,23 +56,23 @@
 	 * @param isFollowerCommenter Whether the followers of the department can comment or not.
 	 * @return ID of the newly created department.
 	 */
-		function createDepartment($name = null, $description = null, $address = null, $telephone = null, $email = null, $web = null, $fax = null, $showMembers = "true", $idUserOwner = null, $attributes = null, $isFollowerCommenter = "true") {
+		function createDepartment($name, $showMembers = "true", $isFollowerCommenter = "true", $description = null, $address = null, $telephone = null, $email = null, $web = null, $fax = null, $idUserOwner = null, $attributes = null) {
 
 			$method = DEPARTMENTS . "/";
 
 			$verbmethod = "POST";
 
 			$params = array("name" => $name,
+							 "showMembers" => $showMembers,
+							 "isFollowerCommenter" => $isFollowerCommenter,
 							 "description" => $description,
 							 "address" => $address,
 							 "telephone" => $telephone,
 							 "email" => $email,
 							 "web" => $web,
 							 "fax" => $fax,
-							 "showMembers" => $showMembers,
 							 "idUserOwner" => $idUserOwner,
-							 "attributes" => $attributes,
-							 "isFollowerCommenter" => $isFollowerCommenter);
+							 "attributes" => $attributes);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -232,7 +232,7 @@
 	 * @param enabled Determines whether subscription to the notification of this event type is enabled or disabled.
 	 * @since 3.4
 	 */
-		function editNotification($iddepartment, $notificationType = null, $subscriptionType = null, $enabled = null) {
+		function editNotification($iddepartment, $notificationType, $subscriptionType, $enabled) {
 
 			$method = DEPARTMENTS . "/$iddepartment/notifications";
 
@@ -291,15 +291,15 @@
 	 * @return A list of departments {@link DepartmentApi}.
 	 * @since 3.4
 	 */
-		function getDepartmentsForUser($iduser, $pageNumber = null, $itemsPerPage = null, $departmentFilter = "0", $startsWith = null, $orderField = null, $orderType = null) {
+		function getDepartmentsForUser($iduser, $departmentFilter = "0", $pageNumber = null, $itemsPerPage = null, $startsWith = null, $orderField = null, $orderType = null) {
 
 			$method = DEPARTMENTS . "/users/$iduser";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
+			$params = array("departmentFilter" => $departmentFilter,
+							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
-							 "departmentFilter" => $departmentFilter,
 							 "startsWith" => $startsWith,
 							 "orderField" => $orderField,
 							 "orderType" => $orderType);
@@ -440,7 +440,7 @@
 	 * @param idUser User ID of the new member to add.
 	 * @param isOwner Parameter to set the new member as owner. Default is false.
 	 */
-		function addMember($iddepartment, $idUser = null, $isOwner = "false") {
+		function addMember($iddepartment, $idUser, $isOwner = "false") {
 
 			$method = DEPARTMENTS . "/$iddepartment/members";
 
@@ -603,7 +603,7 @@
 	 * @param name Name of the folder to create.
 	 * @param description Description of the folder to create.
 	 */
-		function createFolder($iddepartment, $name = null, $description = null) {
+		function createFolder($iddepartment, $name, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/folder";
 
@@ -627,7 +627,7 @@
 	 * @return A folder {@link DocumentApi}
 	 * @since 3.5
 	 */
-		function createFolderAndGetInfo($iddepartment, $name = null, $description = null) {
+		function createFolderAndGetInfo($iddepartment, $name, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/createfolder";
 
@@ -649,7 +649,7 @@
 	 * @param name Name of the folder to create.
 	 * @param description Description of the folder to create.
 	 */
-		function createFolderInDocument($iddepartment, $iddocument, $name = null, $description = null) {
+		function createFolderInDocument($iddepartment, $iddocument, $name, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/folder";
 
@@ -673,7 +673,7 @@
 	 * @return A folder {@link DocumentApi}
 	 * @since 3.5
 	 */
-		function createFolderInDocumentAndGetInfo($iddepartment, $iddocument, $name = null, $description = null) {
+		function createFolderInDocumentAndGetInfo($iddepartment, $iddocument, $name, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/createfolder";
 
@@ -743,7 +743,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternalLink($iddepartment, $name = null, $url = null, $description = null) {
+		function createExternalLink($iddepartment, $name, $url, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/externallink";
 
@@ -768,7 +768,7 @@
 	 * @param description Description of the document.
 	 * @return ID of the newly created link.
 	 */
-		function createExternalLinkByDocumentId($iddepartment, $iddocument, $name = null, $url = null, $description = null) {
+		function createExternalLinkByDocumentId($iddepartment, $iddocument, $name, $url, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/externallink";
 
@@ -792,7 +792,7 @@
 	 * @param idLink Target document ID, i.e. the document to which it will be linked.
 	 * @return ID of the newly created link.
 	 */
-		function createInternaLink($iddepartment, $idLink = null) {
+		function createInternaLink($iddepartment, $idLink) {
 
 			$method = DEPARTMENTS . "/$iddepartment/internallink";
 
@@ -814,7 +814,7 @@
 	 * @param idLink Target document ID, i.e. the document to which it will be linked.
 	 * @return ID of the newly created link.
 	 */
-		function createInternaLinkByDocumentId($iddepartment, $iddocument, $idLink = null) {
+		function createInternaLinkByDocumentId($iddepartment, $iddocument, $idLink) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/internallink";
 
@@ -844,19 +844,19 @@
 	 * @param onlyResultSize Set as true if you only want to know the number of results that are in this search. Default is false.
 	 * @return A list of departments {@link DepartmentApi} matching the search.
 	 */
-		function searchDepartments($pageNumber = null, $itemsPerPage = null, $text = null, $users = null, $fromDate = null, $toDate = null, $onlyResultSize = "false") {
+		function searchDepartments($onlyResultSize = "false", $pageNumber = null, $itemsPerPage = null, $text = null, $users = null, $fromDate = null, $toDate = null) {
 
 			$method = DEPARTMENTS . "/search";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
+			$params = array("onlyResultSize" => $onlyResultSize,
+							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
 							 "text" => $text,
 							 "users" => $users,
 							 "fromDate" => $fromDate,
-							 "toDate" => $toDate,
-							 "onlyResultSize" => $onlyResultSize);
+							 "toDate" => $toDate);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -882,20 +882,20 @@
 	 * @param onlyResultSize Set as true if you only want to know the number of results that are in this search. Default is false.
 	 * @return A list of documents {@link DocumentApi} matching the search.
 	 */
-		function searchDocuments($pageNumber = null, $itemsPerPage = null, $text = null, $departments = null, $users = null, $fromDate = null, $toDate = null, $onlyResultSize = "false") {
+		function searchDocuments($onlyResultSize = "false", $pageNumber = null, $itemsPerPage = null, $text = null, $departments = null, $users = null, $fromDate = null, $toDate = null) {
 
 			$method = DEPARTMENTS . "/documents/search";
 
 			$verbmethod = "GET";
 
-			$params = array("pageNumber" => $pageNumber,
+			$params = array("onlyResultSize" => $onlyResultSize,
+							 "pageNumber" => $pageNumber,
 							 "itemsPerPage" => $itemsPerPage,
 							 "text" => $text,
 							 "departments" => $departments,
 							 "users" => $users,
 							 "fromDate" => $fromDate,
-							 "toDate" => $toDate,
-							 "onlyResultSize" => $onlyResultSize);
+							 "toDate" => $toDate);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -960,18 +960,18 @@
 	 * @return Response of the upload {@link UploadDocumentResultApi}
 	 * @since 3.5
 	 */
-		function upload($iddepartment, $parentDocumentUrn = null, $iddocument = null, $description = null, $fileName = null, $length = null, $file = null) {
+		function upload($iddepartment, $fileName, $length, $file, $parentDocumentUrn = null, $iddocument = null, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/upload/@oauthtoken";
 
 			$verbmethod = "POST";
 
-			$params = array("parentDocumentUrn" => $parentDocumentUrn,
-							 "iddocument" => $iddocument,
-							 "description" => $description,
-							 "fileName" => $fileName,
+			$params = array("fileName" => $fileName,
 							 "length" => $length,
-							 "file" => $file);
+							 "file" => $file,
+							 "parentDocumentUrn" => $parentDocumentUrn,
+							 "iddocument" => $iddocument,
+							 "description" => $description);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -988,15 +988,15 @@
 	 * @param mode The modes available to generate the preview are 0: Keeps proportions, 1: Stretch and 2: Crop. Defaults set to 0.
 	 * @since 3.4
 	 */
-		function preview($iddepartment, $iddocument, $width = null, $height = null, $mode = "0") {
+		function preview($iddepartment, $iddocument, $mode = "0", $width = null, $height = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/preview/@oauthtoken";
 
 			$verbmethod = "GET";
 
-			$params = array("width" => $width,
-							 "height" => $height,
-							 "mode" => $mode);
+			$params = array("mode" => $mode,
+							 "width" => $width,
+							 "height" => $height);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -1068,7 +1068,7 @@
 	 * @param length The size of the file to upload in bytes.
 	 * @since 3.5
 	 */
-		function uploadDepartmentIcon($iddepartment, $length = null, $file = null) {
+		function uploadDepartmentIcon($iddepartment, $length, $file) {
 
 			$method = DEPARTMENTS . "/$iddepartment/uploadicon/@oauthtoken";
 
@@ -1087,18 +1087,18 @@
 	/**
 	 * @deprecated Use {@link IDepartmentApiService#upload(String, String, String, String, String, String, Long, InputStream)}
 	 */
-		function uploadNewDocument($iddepartment, $parentDocumentUrn = null, $description = null, $comment = null, $fileName = null, $length = null, $file = null) {
+		function uploadNewDocument($iddepartment, $fileName, $length, $file, $parentDocumentUrn = null, $description = null, $comment = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/upload/@oauthtoken";
 
 			$verbmethod = "POST";
 
-			$params = array("parentDocumentUrn" => $parentDocumentUrn,
-							 "description" => $description,
-							 "comment" => $comment,
-							 "fileName" => $fileName,
+			$params = array("fileName" => $fileName,
 							 "length" => $length,
-							 "file" => $file);
+							 "file" => $file,
+							 "parentDocumentUrn" => $parentDocumentUrn,
+							 "description" => $description,
+							 "comment" => $comment);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -1110,19 +1110,19 @@
 	/**
 	 * @deprecated Use {@link IDepartmentApiService#upload(String, String, String, String, String, String, Long, InputStream)}
 	 */
-		function uploadDocumentNewVersion($iddepartment, $iddocument, $idversion = null, $description = null, $comment = null, $transferUrn = null, $fileName = null, $length = null, $file = null) {
+		function uploadDocumentNewVersion($iddepartment, $iddocument, $length, $file, $idversion = null, $description = null, $comment = null, $transferUrn = null, $fileName = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/documents/$iddocument/upload/@oauthtoken";
 
 			$verbmethod = "POST";
 
-			$params = array("idversion" => $idversion,
+			$params = array("length" => $length,
+							 "file" => $file,
+							 "idversion" => $idversion,
 							 "description" => $description,
 							 "comment" => $comment,
 							 "transferUrn" => $transferUrn,
-							 "fileName" => $fileName,
-							 "length" => $length,
-							 "file" => $file);
+							 "fileName" => $fileName);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
@@ -1134,18 +1134,18 @@
 	/**
 	 * @deprecated Use {@link IWallApiService#attachInEvent(String, String, String, String, Long, InputStream)}
 	 */
-		function uploadNewDocumentAttached($iddepartment, $parentDocumentUrn = null, $eventUrn = null, $description = null, $fileName = null, $length = null, $file = null) {
+		function uploadNewDocumentAttached($iddepartment, $eventUrn, $fileName, $length, $file, $parentDocumentUrn = null, $description = null) {
 
 			$method = DEPARTMENTS . "/$iddepartment/uploadattach/@oauthtoken";
 
 			$verbmethod = "POST";
 
-			$params = array("parentDocumentUrn" => $parentDocumentUrn,
-							 "eventUrn" => $eventUrn,
-							 "description" => $description,
+			$params = array("eventUrn" => $eventUrn,
 							 "fileName" => $fileName,
 							 "length" => $length,
-							 "file" => $file);
+							 "file" => $file,
+							 "parentDocumentUrn" => $parentDocumentUrn,
+							 "description" => $description);
 
 			$params = array_filter($params, function($item) { return !is_null($item); });
 
