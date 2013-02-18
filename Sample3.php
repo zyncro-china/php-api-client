@@ -47,12 +47,13 @@
 		$Filelength = filesize($_FILES['filesample']['tmp_name']);
 			
 		print_r ($dsf->controller->upload('syncrum:sharegroup:xxxxxxxx-xxxx-xxxx-xxxxxxxxxxxx', 
-										  null,
-										  null, 
-										  $_REQUEST['filedescription'], 
 										  $_REQUEST['filename'],
-										  $Filelength,
-										  $FileSample));
+										  $Filelength, 
+										  $FileSample,
+										  null,
+										  null,
+										  $_REQUEST['filedescription']
+										  ));
 	}
 	
 ?>

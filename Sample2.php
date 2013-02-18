@@ -42,5 +42,5 @@
 
 	loginByUserPass('email@domain.xx','password');
 	
-	print_r ($dsf->controller->getGroupEvents('syncrum:sharegroup:xxxxxxxx-xxxx-xxxx-xxxxxxxxxxxx', null, '10'));			
+	print_r ($dsf->controller->getGroupEvents('syncrum:sharegroup:xxxxxxxx-xxxx-xxxx-xxxxxxxxxxxx', "false", "false", "0", null, '10'));			
 ?>
